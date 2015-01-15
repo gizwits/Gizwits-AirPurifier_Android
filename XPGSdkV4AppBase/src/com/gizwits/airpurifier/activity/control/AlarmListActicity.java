@@ -1,4 +1,4 @@
-package com.gizwits.aircondition.activity.control;
+package com.gizwits.airpurifier.activity.control;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -61,10 +61,10 @@
         <activity
             android:name="zxing.CaptureActivity"
             android:screenOrientation="landscape" />
-        <activity android:name="com.gizwits.aircondition.activity.slipbar.SlipBarActivity" />
-        <activity android:name="com.gizwits.aircondition.activity.control.MainControlActivity" />
-        <activity android:name="com.gizwits.aircondition.activity.control.AlarmListActicity" />
-        <activity android:name="com.gizwits.aircondition.activity.control.CurveActivity" />
+        <activity android:name="com.gizwits.airpurifier.activity.slipbar.SlipBarActivity" />
+        <activity android:name="com.gizwits.airpurifier.activity.control.MainControlActivity" />
+        <activity android:name="com.gizwits.airpurifier.activity.control.AlarmListActicity" />
+        <activity android:name="com.gizwits.airpurifier.activity.control.CurveActivity" />
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package com.gizwits.aircondition.activity.slipbar;
+package com.gizwits.airpurifier.activity.slipbar;
 
 import java.util.List;
 
@@ -28,8 +28,8 @@ import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 
-import com.gizwits.aircondition.activity.control.MainControlActivity;
 import com.gizwits.aircondition.R;
+import com.gizwits.airpurifier.activity.control.MainControlActivity;
 import com.gizwits.framework.activity.BaseActivity;
 import com.gizwits.framework.activity.account.UserManageActivity;
 import com.gizwits.framework.activity.device.DeviceListActivity;

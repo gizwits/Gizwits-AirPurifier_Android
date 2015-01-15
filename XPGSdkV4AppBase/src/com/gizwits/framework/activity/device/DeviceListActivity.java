@@ -17,7 +17,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.gizwits.aircondition.R;
-import com.gizwits.aircondition.activity.control.MainControlActivity;
+import com.gizwits.airpurifier.activity.control.MainControlActivity;
 import com.gizwits.framework.activity.BaseActivity;
 import com.gizwits.framework.activity.account.LoginActivity;
 import com.gizwits.framework.activity.onboarding.SearchDeviceActivity;
