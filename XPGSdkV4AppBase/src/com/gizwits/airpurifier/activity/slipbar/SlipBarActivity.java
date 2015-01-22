@@ -36,6 +36,7 @@ import com.gizwits.framework.activity.device.DeviceListActivity;
 import com.gizwits.framework.activity.device.DeviceManageListActivity;
 import com.gizwits.framework.activity.help.AboutActivity;
 import com.gizwits.framework.activity.help.HelpActivity;
+import com.gizwits.framework.utils.StringUtils;
 import com.xpg.common.system.IntentUtils;
 import com.xtremeprog.xpgconnect.XPGWifiDevice;
 
@@ -229,6 +230,7 @@ public class SlipBarActivity extends BaseActivity implements OnClickListener {
             case R.id.btnDeviceList:
                 IntentUtils.getInstance().startActivity(SlipBarActivity.this,
                         DeviceListActivity.class);
+                mCenter.cDisconnect(mXpgWifiDevice);
                 break;
         }
 
@@ -306,6 +308,7 @@ public class SlipBarActivity extends BaseActivity implements OnClickListener {
         private LayoutInflater inflater;
 
         private int choosedPos = 0;
+        private Context ctx;
 
         public int getChoosedPos() {
             return choosedPos;
@@ -317,6 +320,7 @@ public class SlipBarActivity extends BaseActivity implements OnClickListener {
 
         public DeviceAdapter(Context context, List<XPGWifiDevice> objects) {
             super(context, 0, objects);
+            ctx=context;
             inflater = LayoutInflater.from(context);
         }
 
@@ -337,7 +341,16 @@ public class SlipBarActivity extends BaseActivity implements OnClickListener {
                 holder = (ViewHolder) convertView.getTag();
             }
 
-            holder.deviceName_tv.setText(device.getProductName());
+            if(StringUtils.isEmpty(device.getRemark()))
+    		{
+    			String macAddress=device.getMacAddress();
+    			int size=macAddress.length();
+    			holder.deviceName_tv.setText(device.getProductName() + macAddress.substring(size-4, size));
+    		}else
+    		{
+    			holder.deviceName_tv.setText(device.getRemark());
+    		}
+            
             if (getChoosedPos() == position) {
                 holder.deviceName_tv.setSelected(true);
                 holder.device_checked_tv.setSelected(true);
@@ -347,6 +360,11 @@ public class SlipBarActivity extends BaseActivity implements OnClickListener {
                 holder.deviceName_tv.setSelected(false);
                 holder.device_checked_tv.setSelected(false);
             }
+            
+            if(device.isOnline())
+            	holder.deviceName_tv.setTextColor(ctx.getResources().getColor(R.color.text_blue));
+            else
+            	holder.deviceName_tv.setTextColor(ctx.getResources().getColor(R.color.text_gray));
 
             return convertView;
 
