@@ -29,7 +29,7 @@ import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 
 import com.gizwits.aircondition.R;
-import com.gizwits.airpurifier.activity.control.MainControlActivity;
+import com.gizwits.airpurifier.activity.control.AirPurActivity;
 import com.gizwits.framework.activity.BaseActivity;
 import com.gizwits.framework.activity.account.UserManageActivity;
 import com.gizwits.framework.activity.device.DeviceListActivity;
@@ -185,7 +185,7 @@ public class SlipBarActivity extends BaseActivity implements OnClickListener {
                 progressDialog.show();
             }
         });
-        Bitmap coverBitmap = MainControlActivity.getView();
+        Bitmap coverBitmap = AirPurActivity.getView();
         mCover.setOnClickListener(this);
         mCover.setImageBitmap(coverBitmap);
     }

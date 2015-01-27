@@ -4,56 +4,82 @@ public class JsonKeys {
     /**
      * 产品名
      */
-    public final static String PRODUCT_NAME = "智能云空调";
+    public final static String PRODUCT_NAME = "智能云净化器";
 
     /** 实体字段名，代表对应的项目. */
     public final static String KEY_ACTION = "entity0";
     /**
      * 开关
      */
-    public final static String ON_OFF = "switch";
+    public final static String ON_OFF = "Switch";
     /**
-     * 定时开机
+     * 倒计时开机
      */
-    public final static String TIME_ON = "on_timing";
+    public final static String TIME_ON = "CountDown_On_min";
     /**
-     * 定时关机
+     * 倒计时关机
      */
-    public final static String TIME_OFF = "off_timing";
-    /**
-     * 模式
-     * 0.制冷, 1.送风, 2.除湿, 3.自动
-     */
-    public final static String MODE = "mode";
-    /**
-     * 设定温度
-     * 16 - 30
-     */
-    public final static String SET_TEMP = "set_temp";
+    public final static String TIME_OFF = "CountDown_Off_min";
     /**
      * 风速
-     * 0.低风, 1.中风, 2.高风
+     * 0.强力, 1.标准, 2.睡眠, 3.智能
      */
-    public final static String FAN_SPEED = "fan_speed";
+    public final static String FAN_SPEED = "Wind_Velocity";
     /**
-     * 摆风
+     * 等离子开关
      */
-    public final static String FAN_SHAKE = "fan_swing";
+    public final static String Plasma = "Switch_Plasma";
     /**
-     * 室内温度
-     *  -10 - 35
+     * 空气质量指示灯
      */
-    public final static String ROOM_TEMP = "room_temp";
+    public final static String LED = "LED_Air_Quality";
     /**
-     * 停机报警
+     * 儿童安全锁
      */
-    public final static String ALARM_SHUTDOWM = "alert_shutdown";
+    public final static String Child_Lock = "Child_Security_Lock";
     /**
-     * 水满报警
+     * 滤网寿命
+     */
+    public final static String Filter_Life = "Filter_Life";
+    /**
+     * 空气检测灵敏度
+     */
+    public final static String Air_Sensitivity = "Air_Sensitivity";
+   
+    
+    /**
+     * 电机故障
+     */
+    public final static String Fault_Motor = "Fault_Motor";
+    /**
+     * 空气传感器故障
+     */
+    public final static String Fault_Air_Sensors = "Fault_Air_Sensors";
+    /**
+     * 灰尘传感器故障
+     */
+    public final static String Fault_Dust_Sensor = "Fault_Dust_Sensor";
+    /**
+     * 滤芯寿命报警
      */
     public final static String ALARM_FULL = "alert_full";
+    
+    
     /**
-     * 室温故障
+     * Timing_On
      */
-    public final static String FAULT_ROOMTEMP = "fault_roomtemp";
+    public final static String Timing_On = "" +
+    		"Timing_On";
+    /**
+     * Timing_Off
+     */
+    public final static String Timing_Off = "Timing_Off";
+    /**
+     * Alert_Air_Quality
+     */
+    public final static String Alert_Air_Quality = "Alert_Air_Quality";
+    /**
+     * Week_Repeat
+     */
+    public final static String Week_Repeat = "Week_Repeat";
 }

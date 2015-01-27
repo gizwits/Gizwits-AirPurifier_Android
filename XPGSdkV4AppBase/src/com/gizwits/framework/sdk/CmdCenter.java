@@ -351,42 +351,98 @@ public class CmdCenter {
 
 	// =================================================================
 	//
-	// 智能云空调控制相关
+	// 智能云净化器控制相关
 	//
 	// =================================================================
+	/** 
+	 * 净化器开关
+	 * @param xpgWifiDevice
+	 * @param isOn
+	 */
 	public void cSwitchOn(XPGWifiDevice xpgWifiDevice, boolean isOn) {
 		cWrite(xpgWifiDevice, JsonKeys.ON_OFF, isOn);
 		cGetStatus(xpgWifiDevice);
 	}
-
-	public void cSetShake(XPGWifiDevice xpgWifiDevice, boolean isOn) {
-		cWrite(xpgWifiDevice, JsonKeys.FAN_SHAKE, isOn);
+	
+	/**
+	 * 倒计时开机
+	 * @param xpgWifiDevice
+	 * @param isOn
+	 */
+	public void cCountDownOn(XPGWifiDevice xpgWifiDevice, int min) {
+		cWrite(xpgWifiDevice, JsonKeys.TIME_ON, min);
 		cGetStatus(xpgWifiDevice);
 	}
-
-	public void cMode(XPGWifiDevice xpgWifiDevice, int mode) {
-		cWrite(xpgWifiDevice, JsonKeys.MODE, mode);
+	
+	/**
+	 * 倒计时关机
+	 * @param xpgWifiDevice
+	 * @param isOn
+	 */
+	public void cCountDownOff(XPGWifiDevice xpgWifiDevice, int min) {
+		cWrite(xpgWifiDevice, JsonKeys.TIME_OFF, min);
 		cGetStatus(xpgWifiDevice);
 	}
-
-	public void cFanSpeed(XPGWifiDevice xpgWifiDevice, int fanSpeed) {
-		cWrite(xpgWifiDevice, JsonKeys.FAN_SPEED, fanSpeed);
+	
+	/**
+	 * 风速
+	 * @param xpgWifiDevice
+	 * @param isOn
+	 */
+	public void cSetSpeed(XPGWifiDevice xpgWifiDevice, int lv) {
+		cWrite(xpgWifiDevice, JsonKeys.FAN_SPEED, lv);
 		cGetStatus(xpgWifiDevice);
 	}
-
-	public void cTimeOn(XPGWifiDevice xpgWifiDevice, int time) {
-		cWrite(xpgWifiDevice, JsonKeys.TIME_ON, time);
+	
+	/**
+	 * 等离子开关
+	 * @param xpgWifiDevice
+	 * @param isOn
+	 */
+	public void cSwitchPlasma(XPGWifiDevice xpgWifiDevice, boolean isOn) {
+		cWrite(xpgWifiDevice, JsonKeys.Plasma, isOn);
 		cGetStatus(xpgWifiDevice);
 	}
-
-	public void cTimeOff(XPGWifiDevice xpgWifiDevice, int time) {
-		cWrite(xpgWifiDevice, JsonKeys.TIME_OFF, time);
+	
+	/**
+	 * 空气质量指示灯
+	 * @param xpgWifiDevice
+	 * @param isOn
+	 */
+	public void cLED(XPGWifiDevice xpgWifiDevice, boolean isOn) {
+		cWrite(xpgWifiDevice, JsonKeys.LED, isOn);
 		cGetStatus(xpgWifiDevice);
 	}
-
-	public void cSetTemp(XPGWifiDevice xpgWifiDevice, int templature) {
-		cWrite(xpgWifiDevice, JsonKeys.SET_TEMP, templature);
+	
+	/**
+	 * 儿童安全锁
+	 * @param xpgWifiDevice
+	 * @param isOn
+	 */
+	public void cChildLock(XPGWifiDevice xpgWifiDevice, boolean isOn) {
+		cWrite(xpgWifiDevice, JsonKeys.Child_Lock, isOn);
 		cGetStatus(xpgWifiDevice);
 	}
-
+	
+	/**
+	 * 重置滤网寿命
+	 * @param xpgWifiDevice
+	 * @param isOn
+	 */
+	public void cResetLife(XPGWifiDevice xpgWifiDevice) {
+		cWrite(xpgWifiDevice, JsonKeys.Filter_Life, 100);
+		cGetStatus(xpgWifiDevice);
+	}
+	
+	/**
+	 * 空气检测灵敏度
+	 * @param xpgWifiDevice
+	 * @param isOn
+	 */
+	public void cAirSensitivity(XPGWifiDevice xpgWifiDevice, int lv) {
+		cWrite(xpgWifiDevice, JsonKeys.Air_Sensitivity, lv);
+		cGetStatus(xpgWifiDevice);
+	}
+	
+	
 }

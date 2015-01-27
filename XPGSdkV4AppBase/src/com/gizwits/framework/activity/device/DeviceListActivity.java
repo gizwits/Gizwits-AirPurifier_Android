@@ -34,7 +34,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.gizwits.aircondition.R;
-import com.gizwits.airpurifier.activity.control.MainControlActivity;
+import com.gizwits.airpurifier.activity.control.AirPurActivity;
 import com.gizwits.framework.activity.BaseActivity;
 import com.gizwits.framework.activity.account.LoginActivity;
 import com.gizwits.framework.activity.onboarding.BindingDeviceActivity;
@@ -141,7 +141,7 @@ public class DeviceListActivity extends BaseActivity implements
 			case LOGIN_SUCCESS:
 				progressDialog.cancel();
 				IntentUtils.getInstance().startActivity(
-						DeviceListActivity.this, MainControlActivity.class);
+						DeviceListActivity.this, AirPurActivity.class);
 				break;
 
 			case LOGIN_FAIL:
