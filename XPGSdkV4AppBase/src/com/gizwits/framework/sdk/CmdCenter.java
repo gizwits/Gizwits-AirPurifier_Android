@@ -389,7 +389,7 @@ public class CmdCenter {
 	 * @param xpgWifiDevice
 	 * @param isOn
 	 */
-	public void cSetSpeed(XPGWifiDevice xpgWifiDevice, int lv) {
+	public void cSetSpeed(XPGWifiDevice xpgWifiDevice, String lv) {
 		cWrite(xpgWifiDevice, JsonKeys.FAN_SPEED, lv);
 		cGetStatus(xpgWifiDevice);
 	}

@@ -1,13 +1,23 @@
 package com.gizwits.airpurifier.activity.control;
 
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.concurrent.ConcurrentHashMap;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -25,7 +35,11 @@ import com.gizwits.aircondition.R;
 import com.gizwits.airpurifier.activity.slipbar.SlipBarActivity;
 import com.gizwits.framework.Interface.OnDialogOkClickListenner;
 import com.gizwits.framework.activity.BaseActivity;
+import com.gizwits.framework.config.JsonKeys;
+import com.gizwits.framework.entity.DeviceAlarm;
+import com.gizwits.framework.utils.DialogManager;
 import com.gizwits.framework.utils.PxUtil;
+import com.xtremeprog.xpgconnect.XPGWifiDevice;
 
 public class AirPurActivity extends BaseActivity implements OnClickListener,OnTouchListener {
 	private final String TAG = "YouAoControlFrament";
@@ -75,6 +89,32 @@ public class AirPurActivity extends BaseActivity implements OnClickListener,OnTo
 	private int select_id;//选中的id
 	/** The is click. */
 	private boolean isClick;
+	/** The device data map. */
+	private ConcurrentHashMap<String, Object> deviceDataMap;
+	/** The m fault dialog. */
+	private Dialog mFaultDialog;
+	/** The statu map. */
+	private ConcurrentHashMap<String, Object> statuMap;
+	/** The alarm list. */
+	private ArrayList<DeviceAlarm> alarmList;
+	
+	private enum handler_key {
+
+		/** The update ui. */
+		UPDATE_UI,
+
+		/** The alarm. */
+		ALARM,
+
+		/** The disconnected. */
+		DISCONNECTED,
+
+		/** The received. */
+		RECEIVED,
+
+		/** The get statue. */
+		GET_STATUE,
+	}
 	
 
 	@Override
@@ -82,13 +122,15 @@ public class AirPurActivity extends BaseActivity implements OnClickListener,OnTo
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.youao_control);
 		initUI();
+		statuMap = new ConcurrentHashMap<String, Object>();
+		alarmList = new ArrayList<DeviceAlarm>();
 	}
 
 	@Override
 	public void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-
+		mXpgWifiDevice.setListener(deviceListener);
 	}
 
 	@Override
@@ -204,12 +246,16 @@ public class AirPurActivity extends BaseActivity implements OnClickListener,OnTo
 		case R.id.reConn_btn:
 			break;
 		case R.id.childLockO_iv:
+			mCenter.cChildLock(mXpgWifiDevice, false);
 			break;
 		case R.id.plasmaO_iv:
+			mCenter.cSwitchPlasma(mXpgWifiDevice, false);
 			break;
 		case R.id.qualityLightO_iv:
+			mCenter.cLED(mXpgWifiDevice, false);
 			break;
 		case R.id.turnOn_iv:
+			mCenter.cSwitchOn(mXpgWifiDevice, false);
 			break;
 		case R.id.timingOn_layout:
 		case R.id.timingOn_iv:
@@ -227,12 +273,16 @@ public class AirPurActivity extends BaseActivity implements OnClickListener,OnTo
 			mCenter.cSwitchOn(mXpgWifiDevice, false);
 			break;
 		case R.id.auto_iv:
+			mCenter.cSetSpeed(mXpgWifiDevice, "3");
 			break;
 		case R.id.silent_iv:
+			mCenter.cSetSpeed(mXpgWifiDevice, "0");
 			break;
 		case R.id.standar_iv:
+			mCenter.cSetSpeed(mXpgWifiDevice, "1");
 			break;
 		case R.id.strong_iv:
+			mCenter.cSetSpeed(mXpgWifiDevice, "2");
 			break;
 //		case R.id.push_iv:
 //			troggleBottom();
@@ -324,21 +374,21 @@ public class AirPurActivity extends BaseActivity implements OnClickListener,OnTo
 	 */
 	public void changeRUNmodeBg(int speed) {
 		reAll();
-		if (speed == 4) {
+		if (speed == 0) {
 			setSilentAnimation();
 			select_id=4;
 		} 
-		if (speed == 2) {
+		if (speed == 1) {
 			setStandarAnimation();
 			select_id=2;
 		} 
 
-		if (speed == 1) {
+		if (speed == 2) {
 			setStrongAnimation();
 			select_id=1;
 		} 
 
-		if (speed == 5) {
+		if (speed == 3) {
 			setAutoAnimation();
 			select_id=5;
 		} 
@@ -368,7 +418,6 @@ public class AirPurActivity extends BaseActivity implements OnClickListener,OnTo
 	 * @param isOn
 	 */
 	public void setTimingOff(boolean isOn, int time) {
-
 //		if (isOn) {
 //			timmingOff_tv.setText(time + "小时后关机");
 //			// timingOff_layout.setImageResource(R.drawable.alarm_select);
@@ -607,7 +656,131 @@ public class AirPurActivity extends BaseActivity implements OnClickListener,OnTo
 	}
 	
 	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		isClick = false;
+	protected void didDisconnected(XPGWifiDevice device) {
+		super.didDisconnected(device);
+	}
+	
+	@Override
+	protected void didReceiveData(XPGWifiDevice device,
+			ConcurrentHashMap<String, Object> dataMap, int result) {
+		Log.e(TAG, "didReceiveData");
+		this.deviceDataMap = dataMap;
+		handler.sendEmptyMessage(handler_key.RECEIVED.ordinal());
+	}
+	
+
+	/**
+	 * The handler.
+	 */
+	Handler handler = new Handler() {
+		public void handleMessage(Message msg) {
+			super.handleMessage(msg);
+			handler_key key = handler_key.values()[msg.what];
+			switch (key) {
+			case RECEIVED:
+				try {
+					if (deviceDataMap.get("data") != null) {
+						Log.i("info", (String) deviceDataMap.get("data"));
+						inputDataToMaps(statuMap,
+								(String) deviceDataMap.get("data"));
+
+					}
+					alarmList.clear();
+					if (deviceDataMap.get("alters") != null) {
+						Log.i("info", (String) deviceDataMap.get("alters"));
+						// 返回主线程处理报警数据刷新
+//						inputAlarmToList((String) deviceDataMap.get("alters"));
+					}
+					if (deviceDataMap.get("faults") != null) {
+						Log.i("info", (String) deviceDataMap.get("faults"));
+						// 返回主线程处理错误数据刷新
+//						inputAlarmToList((String) deviceDataMap.get("faults"));
+					}
+					// 返回主线程处理P0数据刷新
+					handler.sendEmptyMessage(handler_key.UPDATE_UI.ordinal());
+					handler.sendEmptyMessage(handler_key.ALARM.ordinal());
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			case UPDATE_UI:
+				if (statuMap != null && statuMap.size() > 0) {
+					Log.e("123123123123", "switch : "+statuMap.get(JsonKeys.ON_OFF));
+					changeRUNmodeBg(Integer.parseInt(statuMap.get(JsonKeys.FAN_SPEED).toString()));
+					setChildLock((Boolean)statuMap.get(JsonKeys.Child_Lock));
+					setIndicatorLight((Boolean)statuMap.get(JsonKeys.LED));
+					setPlasma((Boolean)statuMap.get(JsonKeys.Plasma));
+				}
+				break;
+			case ALARM:
+				if (alarmList != null && alarmList.size() > 0) {
+					if (mFaultDialog == null) {
+						mFaultDialog = DialogManager.getDeviceErrirDialog(
+								AirPurActivity.this, "设备故障",
+								new OnClickListener() {
+
+									@Override
+									public void onClick(View v) {
+										Intent intent = new Intent(
+												Intent.ACTION_CALL, Uri
+														.parse("tel:10086"));
+										startActivity(intent);
+										mFaultDialog.dismiss();
+										mFaultDialog = null;
+									}
+								});
+
+					}
+					mFaultDialog.show();
+//					setTipsLayoutVisiblity(true, alarmList.size());
+				} else {
+//					setTipsLayoutVisiblity(false, 0);
+				}
+
+			case DISCONNECTED:
+                mCenter.cDisconnect(mXpgWifiDevice);
+				break;
+			case GET_STATUE:
+				mCenter.cGetStatus(mXpgWifiDevice);
+				break;
+			}
+		}
+	};
+	
+	/**
+	 * Input data to maps.
+	 * 
+	 * @param map
+	 *            the map
+	 * @param json
+	 *            the json
+	 * @throws JSONException
+	 *             the JSON exception
+	 */
+	private void inputDataToMaps(ConcurrentHashMap<String, Object> map,
+			String json) throws JSONException {
+		Log.i("revjson", json);
+		JSONObject receive = new JSONObject(json);
+		Iterator actions = receive.keys();
+		while (actions.hasNext()) {
+
+			String action = actions.next().toString();
+			Log.i("revjson", "action=" + action);
+			// 忽略特殊部分
+			if (action.equals("cmd") || action.equals("qos")
+					|| action.equals("seq") || action.equals("version")) {
+				continue;
+			}
+			JSONObject params = receive.getJSONObject(action);
+			Log.i("revjson", "params=" + params);
+			Iterator it_params = params.keys();
+			while (it_params.hasNext()) {
+				String param = it_params.next().toString();
+				Object value = params.get(param);
+				map.put(param, value);
+				Log.i(TAG, "Key:" + param + ";value" + value);
+			}
+		}
+		handler.sendEmptyMessage(handler_key.UPDATE_UI.ordinal());
 	}
 }
