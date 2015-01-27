@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -80,6 +81,7 @@ public class AirPurActivity extends BaseActivity implements OnClickListener,OnTo
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.youao_control);
+		initUI();
 	}
 
 	@Override
@@ -106,11 +108,11 @@ public class AirPurActivity extends BaseActivity implements OnClickListener,OnTo
 //		alarmTips_layout = (RelativeLayout) findViewById(R.id.alarmTips_layout);
 
 		back_layout = (RelativeLayout) findViewById(R.id.back_layout);
-		push_iv = (ImageView) findViewById(R.id.push_iv);
-		push_iv.setOnClickListener(this);
+//		push_iv = (ImageView) findViewById(R.id.push_iv);
+//		push_iv.setOnClickListener(this);
 		// connectType_tv = (TextView) findViewById(R.id.connectType_tv);
 //		timingOff_iv = (ImageView) findViewById(R.id.timingOff_iv);
-		timingOff_iv.setOnClickListener(this);
+//		timingOff_iv.setOnClickListener(this);
 		homeQualityResult_tv = (TextView) findViewById(R.id.homeQualityResult_tv);
 		homeQualityResult_iv = (ImageView) findViewById(R.id.homeQualityResult_iv);
 		setTimeOff_iv = (ImageView) findViewById(R.id.setTimeOff_iv);
@@ -222,6 +224,7 @@ public class AirPurActivity extends BaseActivity implements OnClickListener,OnTo
 			}
 			break;
 		case R.id.ivPower:
+			mCenter.cSwitchOn(mXpgWifiDevice, false);
 			break;
 		case R.id.auto_iv:
 			break;
@@ -231,9 +234,9 @@ public class AirPurActivity extends BaseActivity implements OnClickListener,OnTo
 			break;
 		case R.id.strong_iv:
 			break;
-		case R.id.push_iv:
-			troggleBottom();
-			break;
+//		case R.id.push_iv:
+//			troggleBottom();
+//			break;
 		default:
 			break;
 		}
@@ -247,7 +250,7 @@ public class AirPurActivity extends BaseActivity implements OnClickListener,OnTo
 				.getLayoutParams();
 		int bM = params.bottomMargin;
 		if (bM == 0) {
-			params.bottomMargin = PxUtil.dip2px(this, -70);
+			params.bottomMargin = PxUtil.dip2px(this, -76);
 			back_layout.setVisibility(View.GONE);
 		} else {
 			params.bottomMargin = 0;

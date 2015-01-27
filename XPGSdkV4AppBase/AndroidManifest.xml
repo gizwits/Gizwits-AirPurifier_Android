@@ -62,7 +62,7 @@
             android:name="zxing.CaptureActivity"
             android:screenOrientation="landscape" />
         <activity android:name="com.gizwits.airpurifier.activity.slipbar.SlipBarActivity" />
-        <activity android:name="com.gizwits.airpurifier.activity.control.MainControlActivity" />
+        <activity android:name="com.gizwits.airpurifier.activity.control.AirPurActivity" />
         <activity android:name="com.gizwits.airpurifier.activity.control.AlarmListActicity" />
         <activity android:name="com.gizwits.airpurifier.activity.control.CurveActivity" />
     </application>
