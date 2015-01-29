@@ -1,8 +1,8 @@
 /**
  * Project Name:XPGSdkV4AppBase
  * File Name:AutoConfigActivity.java
- * Package Name:com.gizwits.aircondition.activity.onboarding
- * Date:2014-12-9 17:30:20
+ * Package Name:com.gizwits.framework.activity.onboarding
+ * Date:2015-1-27 14:45:54
  * Copyright (c) 2014~2015 Xtreme Programming Group, Inc.
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), 
  * to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, 
@@ -46,6 +46,7 @@ import com.xpg.ui.utils.ToastUtils;
 /**
  * 
  * ClassName: Class AutoConfigActivity. <br/>
+ * 自动配置界面
  * <br/>
  * date: 2014-12-9 17:30:20 <br/>
  * 
@@ -65,10 +66,13 @@ public class AutoConfigActivity extends BaseActivity implements OnClickListener 
 	/** The btn next. */
 	private Button btnNext;
 
-	/** 网络状态广播接受器 */
+	/**  网络状态广播接受器. */
 	ConnecteChangeBroadcast mChangeBroadcast = new ConnecteChangeBroadcast();
 	
+	/** The str ssid. */
 	private String strSsid;
+	
+	/** The str psw. */
 	private String strPsw;
 
 	/**
@@ -81,6 +85,7 @@ public class AutoConfigActivity extends BaseActivity implements OnClickListener 
 	 */
 	private enum handler_key {
 
+		/** The change wifi. */
 		CHANGE_WIFI,
 
 	}
@@ -186,6 +191,9 @@ public class AutoConfigActivity extends BaseActivity implements OnClickListener 
 
 	}
 
+	/* (non-Javadoc)
+	 * @see com.gizwits.framework.activity.BaseActivity#onResume()
+	 */
 	@Override
 	public void onResume() {
 		super.onResume();
@@ -197,6 +205,9 @@ public class AutoConfigActivity extends BaseActivity implements OnClickListener 
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onPause()
+	 */
 	public void onPause() {
 		super.onPause();
 		unregisterReceiver(mChangeBroadcast);
@@ -205,9 +216,14 @@ public class AutoConfigActivity extends BaseActivity implements OnClickListener 
 
 	/**
 	 * 广播监听器，监听wifi连上的广播.
+	 *
+	 * @author Lien
 	 */
 	public class ConnecteChangeBroadcast extends BroadcastReceiver {
 
+		/* (non-Javadoc)
+		 * @see android.content.BroadcastReceiver#onReceive(android.content.Context, android.content.Intent)
+		 */
 		@Override
 		public void onReceive(Context context, Intent intent) {
 

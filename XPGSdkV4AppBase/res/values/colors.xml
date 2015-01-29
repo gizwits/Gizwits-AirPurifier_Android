@@ -3,6 +3,10 @@
     <color name="white">#fff</color>
     <color name="black">#000</color>
     <color name="gray">#a3a3a3</color>
+    <color name="green">#1eb994</color>
+    <color name="red">#fb4a46</color>
+    <color name="blue">#298eee</color>
+    <color name="yellow">#fede5a</color>
     
       <color name="contents_text">#ff000000</color>
   <color name="encode_view">#ffffffff</color>

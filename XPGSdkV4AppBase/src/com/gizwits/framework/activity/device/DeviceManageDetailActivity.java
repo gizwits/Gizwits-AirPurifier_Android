@@ -1,8 +1,8 @@
 /**
  * Project Name:XPGSdkV4AppBase
  * File Name:DeviceManageDetailActivity.java
- * Package Name:com.gizwits.aircondition.activity.device
- * Date:2015-1-12 12:04:07
+ * Package Name:com.gizwits.framework.activity.device
+ * Date:2015-1-27 14:45:23
  * Copyright (c) 2014~2015 Xtreme Programming Group, Inc.
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), 
  * to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, 
@@ -16,6 +16,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 package com.gizwits.framework.activity.device;
+
+import java.util.List;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -38,7 +40,6 @@ import com.xpg.common.system.IntentUtils;
 import com.xpg.ui.utils.ToastUtils;
 import com.xtremeprog.xpgconnect.XPGWifiDevice;
 
-// TODO: Auto-generated Javadoc
 //TODO: Auto-generated Javadoc
 /**
  * 
@@ -53,6 +54,8 @@ public class DeviceManageDetailActivity extends BaseActivity implements
 
 	/** The iv back. */
 	private ImageView ivBack;
+	
+	/** The iv tick. */
 	private ImageView ivTick;
 
 	/** The tv init date. */
@@ -73,11 +76,16 @@ public class DeviceManageDetailActivity extends BaseActivity implements
 	/** The btn delDevice. */
 	private Button btnDelDevice;
 
+	/** The xpg wifi device. */
 	private XPGWifiDevice xpgWifiDevice;
 
+	/** The unbind dialog. */
 	private Dialog unbindDialog;
 
+	/** The progress dialog. */
 	private ProgressDialog progressDialog;
+	
+	private Message msg = new Message();
 
 	/**
 	 * ClassName: Enum handler_key. <br/>
@@ -88,45 +96,60 @@ public class DeviceManageDetailActivity extends BaseActivity implements
 	 */
 	private enum handler_key {
 
+		/** The change success. */
 		CHANGE_SUCCESS,
 
+		/** The change fail. */
 		CHANGE_FAIL,
 
+		/** The delete success. */
 		DELETE_SUCCESS,
 
+		/** The delete fail. */
 		DELETE_FAIL,
+		
+		GET_BOUND,
 
 	}
 
+	/** The handler. */
 	Handler handler = new Handler() {
 
 		@Override
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);
 			handler_key key = handler_key.values()[msg.what];
+			
 			switch (key) {
 			case CHANGE_SUCCESS:
+				DialogManager.dismissDialog(DeviceManageDetailActivity.this, progressDialog);
 				ToastUtils.showShort(DeviceManageDetailActivity.this, "修改成功！");
+				finish();
 				break;
 
 			case CHANGE_FAIL:
+				DialogManager.dismissDialog(DeviceManageDetailActivity.this, progressDialog);
 				ToastUtils.showShort(DeviceManageDetailActivity.this, "修改失败:"
 						+ msg.obj.toString());
 				break;
 
 			case DELETE_SUCCESS:
+				DialogManager.dismissDialog(DeviceManageDetailActivity.this, progressDialog);
 				ToastUtils.showShort(DeviceManageDetailActivity.this, "删除成功！");
-				IntentUtils.getInstance().startActivity(
-						DeviceManageDetailActivity.this,
-						DeviceListActivity.class);
 				finish();
 				break;
 
 			case DELETE_FAIL:
+				DialogManager.dismissDialog(DeviceManageDetailActivity.this, progressDialog);
 				ToastUtils.showShort(DeviceManageDetailActivity.this, "删除失败:"
 						+ msg.obj.toString());
 				break;
-
+				
+			case GET_BOUND:
+				String uid = setmanager.getUid();
+				String token = setmanager.getToken();
+				mCenter.cGetBoundDevices(uid, token);
+				break;
 			}
 		}
 
@@ -149,6 +172,9 @@ public class DeviceManageDetailActivity extends BaseActivity implements
 
 	}
 
+	/**
+	 * Inits the params.
+	 */
 	private void initParams() {
 		if (getIntent() != null) {
 			String mac = getIntent().getStringExtra("mac");
@@ -173,7 +199,6 @@ public class DeviceManageDetailActivity extends BaseActivity implements
 		btnDelDevice = (Button) findViewById(R.id.btnDelDevice);
 		unbindDialog = DialogManager.getUnbindDialog(this, this);
 		progressDialog = new ProgressDialog(this);
-		progressDialog.setMessage("删除中，请稍候...");
 		progressDialog.setCancelable(false);
 		if (xpgWifiDevice != null) {
 			etName.setText(xpgWifiDevice.getRemark());
@@ -206,6 +231,8 @@ public class DeviceManageDetailActivity extends BaseActivity implements
 			break;
 		case R.id.ivTick:
 			if (!StringUtils.isEmpty(etName.getText().toString())) {
+				progressDialog.setMessage("修改中，请稍候...");
+				DialogManager.showDialog(this, progressDialog);
 				mCenter.cUpdateRemark(setmanager.getUid(), setmanager
 						.getToken(), xpgWifiDevice.getDid(), xpgWifiDevice
 						.getPasscode(), etName.getText().toString());
@@ -216,6 +243,7 @@ public class DeviceManageDetailActivity extends BaseActivity implements
 			break;
 		case R.id.right_btn:
 			DialogManager.dismissDialog(this, unbindDialog);
+			progressDialog.setMessage("删除中，请稍候...");
 			DialogManager.showDialog(this, progressDialog);
 			mCenter.cUnbindDevice(setmanager.getUid(), setmanager.getToken(),
 					xpgWifiDevice.getDid(), xpgWifiDevice.getPasscode());
@@ -224,36 +252,58 @@ public class DeviceManageDetailActivity extends BaseActivity implements
 
 	}
 
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onBackPressed()
+	 */
 	@Override
 	public void onBackPressed() {
 		finish();
 	}
 
+	/* (non-Javadoc)
+	 * @see com.gizwits.framework.activity.BaseActivity#didBindDevice(int, java.lang.String, java.lang.String)
+	 */
 	@Override
 	protected void didBindDevice(int error, String errorMessage, String did) {
 		Log.d("Device扫描结果", "error=" + error + ";errorMessage=" + errorMessage
 				+ ";did=" + did);
 		if (error == 0) {
-			handler.sendEmptyMessage(handler_key.CHANGE_SUCCESS.ordinal());
+			msg.what=handler_key.CHANGE_SUCCESS.ordinal();
+			handler.sendEmptyMessage(handler_key.GET_BOUND.ordinal());
 		} else {
-			Message msg = new Message();
 			msg.what = handler_key.CHANGE_FAIL.ordinal();
 			msg.obj = errorMessage;
 			handler.sendMessage(msg);
 		}
+		
 	}
 
+	/* (non-Javadoc)
+	 * @see com.gizwits.framework.activity.BaseActivity#didUnbindDevice(int, java.lang.String, java.lang.String)
+	 */
 	@Override
 	protected void didUnbindDevice(int error, String errorMessage, String did) {
-		DialogManager.dismissDialog(this, progressDialog);
 		if (error == 0) {
-			handler.sendEmptyMessage(handler_key.DELETE_SUCCESS.ordinal());
-			
+			msg.what=handler_key.DELETE_SUCCESS.ordinal();
+			handler.sendEmptyMessage(handler_key.GET_BOUND.ordinal());
 		} else {
-			Message msg = new Message();
 			msg.what = handler_key.DELETE_FAIL.ordinal();
 			msg.obj = errorMessage;
 			handler.sendMessage(msg);
 		}
+		
 	}
+
+	@Override
+	protected void didDiscovered(int error, List<XPGWifiDevice> deviceList) {
+		Log.d("onDiscovered", "Device count:" + deviceList.size());
+		deviceslist=deviceList;
+		if(msg!=null)
+		{
+			handler.sendMessageDelayed(msg, 1500);
+			msg=null;
+		}
+	}
+	
+	
 }

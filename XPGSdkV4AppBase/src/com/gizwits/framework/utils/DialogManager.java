@@ -1,15 +1,15 @@
 /**
  * Project Name:XPGSdkV4AppBase
  * File Name:DialogManager.java
- * Package Name:com.gizwits.aircondition.utils
- * Date:2014-12-4 14:21:07
+ * Package Name:com.gizwits.framework.utils
+ * Date:2015-1-27 14:47:29
  * Copyright (c) 2014~2015 Xtreme Programming Group, Inc.
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), 
  * to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, 
  * and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
- *
+ * 
  * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
- *
+ * 
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
@@ -32,6 +32,16 @@ import com.gizwits.aircondition.R;
 import com.gizwits.framework.widget.ArrayWheelAdapter;
 import com.gizwits.framework.widget.WheelView;
 
+// TODO: Auto-generated Javadoc
+/**
+ *  
+ * ClassName: Class DialogManager. <br/> 
+ * 对话框管理
+ * <br/>
+ * date: 2015-1-27 14:47:29 <br/> 
+ *
+ * @author Lien
+ */
 public class DialogManager {
 
 	/**
@@ -53,14 +63,11 @@ public class DialogManager {
 	
 
 	/**
-	 * 注销对话框
-	 * 
-	 * @param ctx
-	 * @param contentStr
-	 *            对话框内容
-	 * @param r
-	 *            右按钮监听器
-	 * @return
+	 * 注销对话框.
+	 *
+	 * @param ctx the ctx
+	 * @param r            右按钮监听器
+	 * @return the logout dialog
 	 */
 	public static Dialog getLogoutDialog(final Activity ctx, OnClickListener r) {
 		final Dialog dialog = new Dialog(ctx, R.style.noBackgroundDialog) {
@@ -86,14 +93,11 @@ public class DialogManager {
 	}
 	
 	/**
-	 * 删除对话框
-	 * 
-	 * @param ctx
-	 * @param contentStr
-	 *            对话框内容
-	 * @param r
-	 *            右按钮监听器
-	 * @return
+	 * 删除对话框.
+	 *
+	 * @param ctx the ctx
+	 * @param r            右按钮监听器
+	 * @return the unbind dialog
 	 */
 	public static Dialog getUnbindDialog(final Activity ctx, OnClickListener r) {
 		final Dialog dialog = new Dialog(ctx, R.style.noBackgroundDialog) {
@@ -117,18 +121,47 @@ public class DialogManager {
 		dialog.setContentView(v);
 		return dialog;
 	}
-
+	
 	/**
-	 * 设备故障无法使用,拨打客服热线 对话框
+	 * 确定关机对话框
 	 * 
 	 * @param ctx
 	 * @param contentStr
 	 *            对话框内容
-	 * @param l
-	 *            左按钮监听器
 	 * @param r
 	 *            右按钮监听器
 	 * @return
+	 */
+	public static Dialog getPowerOffDialog(final Activity ctx, OnClickListener r) {
+		final Dialog dialog = new Dialog(ctx, R.style.noBackgroundDialog) {
+		};
+		LayoutInflater layoutInflater = LayoutInflater.from(ctx);
+		View v = layoutInflater.inflate(R.layout.dialog_power_off, null);
+		Button leftBtn = (Button) v.findViewById(R.id.left_btn);
+		Button rightBtn = (Button) v.findViewById(R.id.right_btn);
+		leftBtn.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				dismissDialog(ctx, dialog);
+			}
+		});
+		rightBtn.setOnClickListener(r);
+
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		dialog.setCanceledOnTouchOutside(false);
+		dialog.setCancelable(false);
+		dialog.setContentView(v);
+		return dialog;
+	}
+
+	/**
+	 * 设备故障无法使用,拨打客服热线 对话框.
+	 *
+	 * @param ctx the ctx
+	 * @param contentStr            对话框内容
+	 * @param r            右按钮监听器
+	 * @return the device errir dialog
 	 */
 	public static Dialog getDeviceErrirDialog(final Activity ctx,
 			String contentStr, OnClickListener r) {
@@ -159,11 +192,13 @@ public class DialogManager {
 	}
 
 	/**
-	 * 定时开关机对话框
-	 * 
-	 * @param ctx
-	 * @param l
-	 * @return
+	 * 定时开关机对话框.
+	 *
+	 * @param ctx the ctx
+	 * @param l the l
+	 * @param titleStr the title str
+	 * @param index the index
+	 * @return the wheel timing dialog
 	 */
 	public static Dialog getWheelTimingDialog(final Activity ctx,
 			final OnTimingChosenListener l, String titleStr, int index) {
@@ -225,6 +260,12 @@ public class DialogManager {
 		return dialog;
 	}
 
+	/**
+	 * Show dialog.
+	 *
+	 * @param ctx the ctx
+	 * @param dialog the dialog
+	 */
 	public static void showDialog(Context ctx, Dialog dialog) {
 		if (dialog != null && !dialog.isShowing() && ctx != null
 				&& !((Activity) ctx).isFinishing()) {
@@ -233,12 +274,10 @@ public class DialogManager {
 	}
 
 	/**
-	 * 隐藏dialog，加了context生命判断，避免窗口句柄泄漏
-	 * 
-	 * @param ctx
-	 *            dialog依赖的activity
-	 * @param dialog
-	 *            欲隐藏的dialog
+	 * 隐藏dialog，加了context生命判断，避免窗口句柄泄漏.
+	 *
+	 * @param ctx            dialog依赖的activity
+	 * @param dialog            欲隐藏的dialog
 	 */
 	public static void dismissDialog(Activity ctx, Dialog dialog) {
 		if (dialog != null && dialog.isShowing() && ctx != null
@@ -247,12 +286,51 @@ public class DialogManager {
 	}
 
 	/**
-	 * wheel view dialog
-	 * 
-	 * @return
+	 * wheel view dialog.
+	 *
+	 * @see OnTimingChosenEvent
 	 */
 
 	public interface OnTimingChosenListener {
+		
+		/**
+		 * Timing chosen.
+		 *
+		 * @param time the time
+		 */
 		public void timingChosen(int time);
+	}
+	
+	/**
+	 * 
+	 * @param ctx
+	 * @param clickListener
+	 * @return
+	 */
+	public static Dialog getResetRoseboxDialog(final Activity ctx,OnClickListener onClickListener) {
+		final Dialog dialog = new Dialog(ctx, R.style.dialog_orderDetail) {
+			@Override
+			public void dismiss() {
+				super.dismiss();
+			}
+		};
+		LayoutInflater layoutInflater = LayoutInflater.from(ctx);
+		View v = layoutInflater.inflate(R.layout.dialog_reset_rosebox, null);
+		Button confi_btn = (Button) v.findViewById(R.id.right_btn);
+		Button cancel_btn = (Button) v.findViewById(R.id.left_btn);
+		cancel_btn.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				dialog.dismiss();
+			}
+		});
+		confi_btn.setOnClickListener(onClickListener);
+
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		dialog.setCanceledOnTouchOutside(false);
+		dialog.setCancelable(false);
+		dialog.setContentView(v);
+		return dialog;
 	}
 }

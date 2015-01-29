@@ -74,7 +74,7 @@ public class AirPurActivity extends BaseActivity implements OnClickListener,OnTo
 	private ImageView strong_iv;//强力
 	private ImageView auto_iv;//自动
 	private RelativeLayout turnOff_layout;//关机界面
-	private ImageView turnOn_iv;
+	private ImageView turnOn_iv;//开机按钮
 	private RelativeLayout back_layout;//打开底部隐藏菜单后，半透明黑色遮罩层
 	private Button back_btn;//灰色遮罩层按钮，可点击，退出底部菜单
 	private ImageView timingOff_iv;
@@ -130,6 +130,7 @@ public class AirPurActivity extends BaseActivity implements OnClickListener,OnTo
 	public void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
+		handler.sendEmptyMessage(handler_key.GET_STATUE.ordinal());
 		mXpgWifiDevice.setListener(deviceListener);
 	}
 
@@ -140,6 +141,9 @@ public class AirPurActivity extends BaseActivity implements OnClickListener,OnTo
 	}
 	
 	private void initUI(){
+		turnOff_layout=(RelativeLayout) findViewById(R.id.turnOff_layout);
+		turnOn_iv=(ImageView) findViewById(R.id.turnOn_iv);
+		turnOn_iv.setOnClickListener(this);
 		mView = findViewById(R.id.main_layout);
 		homeQualityTip_iv = (ImageView) findViewById(R.id.homeQualityTipArrow_iv);
 		back_btn = (Button) findViewById(R.id.back_btn);
@@ -246,16 +250,28 @@ public class AirPurActivity extends BaseActivity implements OnClickListener,OnTo
 		case R.id.reConn_btn:
 			break;
 		case R.id.childLockO_iv:
-			mCenter.cChildLock(mXpgWifiDevice, false);
+			if (childLockO_iv.getTag().toString() == "0") {
+				mCenter.cChildLock(mXpgWifiDevice, false);
+			}else{
+				mCenter.cChildLock(mXpgWifiDevice, true);
+			}
 			break;
 		case R.id.plasmaO_iv:
-			mCenter.cSwitchPlasma(mXpgWifiDevice, false);
+			if (palasmaO_iv.getTag().toString() == "0") {
+				mCenter.cSwitchPlasma(mXpgWifiDevice, false);
+			}else{
+				mCenter.cSwitchPlasma(mXpgWifiDevice, true);
+			}
 			break;
 		case R.id.qualityLightO_iv:
-			mCenter.cLED(mXpgWifiDevice, false);
+			if (qualityLightO_iv.getTag().toString() == "0") {
+				mCenter.cLED(mXpgWifiDevice, false);
+			}else{
+				mCenter.cLED(mXpgWifiDevice, true);
+			}
 			break;
 		case R.id.turnOn_iv:
-			mCenter.cSwitchOn(mXpgWifiDevice, false);
+			mCenter.cSwitchOn(mXpgWifiDevice, true);
 			break;
 		case R.id.timingOn_layout:
 		case R.id.timingOn_iv:
@@ -465,103 +481,6 @@ public class AirPurActivity extends BaseActivity implements OnClickListener,OnTo
 		}
 	}
 
-//	private Handler updateHandler = new Handler() {
-//		public void handleMessage(android.os.Message msg) {
-//			Status status = (Status) msg.obj;
-//			if (homeQualityResult_tv == null)
-//				return;
-//			// initAlarmInfo();
-//			setChildLock(status.isChildLockOn());
-//			setIndicatorLight(status.isIndicatorLightOn());
-//			setPlasma(status.isPlasmaOn());
-//			setUV(status.isUvLithtOn());
-//			// currentOn = status.getTimingOn();
-//			// currentOff = status.getTimingOff();
-//			if (status.isAutoRunMode()) {
-//				if (select_id!=5) {
-//					changeRUNmodeBg(5);
-//				}
-//			} else {
-//				if (select_id!=status.getWindSpeed()) {
-//					changeRUNmodeBg(status.getWindSpeed());
-//				}
-//			}
-//
-//			Status s = (Status) msg.obj;
-//			int level = s.getCurrentAirQuality();
-//			// 转换为分数
-//			int result = (int) (level * 8);
-//			if (result > 100) {
-//				result = 100;
-//			}
-//			float quality = (100 - result) * mW100;
-//			updateTips(quality);
-//			bgScrollTo(result);
-//			// top_point.setText("" + result);
-//			if (level > 0 && level <= 3) {
-//				homeQualityResult_tv.setText("优");
-//				homeQualityResult_tv.setTextColor(Color.parseColor("#ffffff"));
-//			} else if (level > 3 && level <= 7) {
-//				homeQualityResult_tv.setText("良");
-//				homeQualityResult_tv.setTextColor(Color.parseColor("#6cf47c"));
-//			} else if (level > 7 && level < 11) {
-//				homeQualityResult_tv.setText("一般");
-//				homeQualityResult_tv.setTextColor(Color.parseColor("#eff160"));
-//			} else if (level > 10 && level <= 15) {
-//				homeQualityResult_tv.setText("差");
-//				homeQualityResult_tv.setTextColor(Color.parseColor("#ff9f17"));
-//			}
-//			setSwitch(status.isSwitchOn());
-//			int timeoff = status.getTimingOff();
-//			if (timeoff == 0) {
-//				setTimingOff(false, timeoff);
-//			} else {
-//				setTimingOff(true, timeoff);
-//			}
-//			currentOn = status.getTimingOn();
-//			currentOff = status.getTimingOff();
-//			int timeon = status.getTimingOn();
-//			CustomLog.info(TAG, "timeon:" + timeon);
-//			if (timeon == 0) {
-//				setTimingOn(false, timeon);
-//			} else {
-//				setTimingOn(true, timeon);
-//			}
-//
-//		};
-//	};
-
-	Dialog alarmDialog = null;
-
-//	@Override
-//	public void onUpdataFault(String fault, boolean isExit) {
-//		CustomLog.info(TAG, "onUpdateFault,fault:" + fault + ",isExit:"
-//				+ isExit);
-//		if (!"无故障".equals(fault) && !isExit) {
-//			if (alarmDialog != null && alarmDialog.isShowing()) {
-//				alarmDialog.dismiss();
-//			}
-//			alarmDialog = DialogManager.getAlarmDialog(getActivity(), fault,
-//					new OnClickListener() {
-//
-//						@Override
-//						public void onClick(View arg0) {
-//							if (alarmDialog != null) {
-//								alarmDialog.dismiss();
-//							}
-//							Intent intent = new Intent(getActivity(),
-//									AdvancedActivity.class);
-//							intent.putExtra(ID.ADVANCE_SET, AdvanceType.alarm);
-//							startActivity(intent);
-//						}
-//					});
-//			alarmDialog.show();
-//		}
-//		// mHandler.sendEmptyMessage(3223);
-//		initAlarmInfo();
-//
-//	}
-
 	private OnTouchListener onTouchListener = new OnTouchListener() {
 
 		private double yDown;
@@ -705,11 +624,11 @@ public class AirPurActivity extends BaseActivity implements OnClickListener,OnTo
 				}
 			case UPDATE_UI:
 				if (statuMap != null && statuMap.size() > 0) {
-					Log.e("123123123123", "switch : "+statuMap.get(JsonKeys.ON_OFF));
 					changeRUNmodeBg(Integer.parseInt(statuMap.get(JsonKeys.FAN_SPEED).toString()));
 					setChildLock((Boolean)statuMap.get(JsonKeys.Child_Lock));
 					setIndicatorLight((Boolean)statuMap.get(JsonKeys.LED));
 					setPlasma((Boolean)statuMap.get(JsonKeys.Plasma));
+					setSwitch((Boolean)statuMap.get(JsonKeys.ON_OFF));
 				}
 				break;
 			case ALARM:
@@ -736,7 +655,7 @@ public class AirPurActivity extends BaseActivity implements OnClickListener,OnTo
 				} else {
 //					setTipsLayoutVisiblity(false, 0);
 				}
-
+				break;
 			case DISCONNECTED:
                 mCenter.cDisconnect(mXpgWifiDevice);
 				break;

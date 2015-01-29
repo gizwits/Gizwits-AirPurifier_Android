@@ -1,15 +1,15 @@
 /**
  * Project Name:XPGSdkV4AppBase
  * File Name:AirlinkActivity.java
- * Package Name:com.gizwits.aircondition.activity.onboarding
- * Date:2014-12-10 14:59:04
+ * Package Name:com.gizwits.framework.activity.onboarding
+ * Date:2015-1-27 14:45:48
  * Copyright (c) 2014~2015 Xtreme Programming Group, Inc.
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), 
  * to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, 
  * and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
- *
+ * 
  * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
- *
+ * 
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
@@ -37,12 +37,11 @@ import com.xpg.common.system.IntentUtils;
 import com.xpg.common.useful.StringUtils;
 import com.xtremeprog.xpgconnect.XPGWifiDevice;
 
-// TODO: Auto-generated Javadoc
 
 /**
  * ClassName: Class AirlinkActivity. <br/>
+ * 配置结果
  * <br/>
- * date: 2014-12-10 14:26:03 <br/>
  *
  * @author Lien
  */
@@ -78,13 +77,19 @@ public class AirlinkActivity extends BaseActivity implements OnClickListener {
      */
     private LinearLayout llConfigFailed;
 
+    /** The tv tick. */
     private TextView tvTick;
 
+    /** The secondleft. */
     int secondleft = 60;
 
+    /** The timer. */
     private Timer timer;
 
+    /** The str s sid. */
     private String strSSid;
+    
+    /** The str psw. */
     private String strPsw;
 
 
@@ -191,6 +196,9 @@ public class AirlinkActivity extends BaseActivity implements OnClickListener {
         llConfigFailed.setVisibility(View.GONE);
     }
 
+    /**
+     * Inits the data.
+     */
     private void initData() {
         if (getIntent() != null) {
             if (!StringUtils.isEmpty(getIntent().getStringExtra("ssid"))) {
@@ -255,6 +263,9 @@ public class AirlinkActivity extends BaseActivity implements OnClickListener {
     }
 
 
+    /* (non-Javadoc)
+     * @see com.gizwits.framework.activity.BaseActivity#didSetDeviceWifi(int, com.xtremeprog.xpgconnect.XPGWifiDevice)
+     */
     @Override
     protected void didSetDeviceWifi(int error, XPGWifiDevice device) {
         if (error == 0) {

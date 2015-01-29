@@ -1,15 +1,15 @@
 /**
  * Project Name:XPGSdkV4AppBase
  * File Name:RegisterActivity.java
- * Package Name:com.gizwits.aircondition.activity.account
- * Date:2014-12-3 11:15:07
+ * Package Name:com.gizwits.framework.activity.account
+ * Date:2015-1-27 14:45:08
  * Copyright (c) 2014~2015 Xtreme Programming Group, Inc.
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), 
  * to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, 
  * and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
- *
+ * 
  * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
- *
+ * 
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
@@ -25,6 +25,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.InputType;
+import android.text.method.DigitsKeyListener;
+import android.text.method.KeyListener;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -50,7 +52,6 @@ import com.xpg.ui.utils.ToastUtils;
 /**
  * ClassName: Class RegisterActivity. <br/>
  * 用户注册<br/>
- * date: 2014-11-27 12:08:00 <br/>
  * 
  * @author Lien
  */
@@ -62,6 +63,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 	 */
 	private TextView tvPhoneSwitch;
 
+	/** The tv tips. */
 	private TextView tvTips;
 
 	/**
@@ -282,9 +284,15 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 				if (isChecked) {
 					etInputPsw.setInputType(InputType.TYPE_CLASS_TEXT
 							| InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+					etInputPsw.setKeyListener(DigitsKeyListener
+							.getInstance(getResources().getString(
+									R.string.register_name_digits)));
 				} else {
 					etInputPsw.setInputType(InputType.TYPE_CLASS_TEXT
 							| InputType.TYPE_TEXT_VARIATION_PASSWORD);
+					etInputPsw.setKeyListener(DigitsKeyListener
+							.getInstance(getResources().getString(
+									R.string.register_name_digits)));
 				}
 
 			}
@@ -359,7 +367,6 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 			btnSure.setVisibility(View.VISIBLE);
 			btnGetCode.setVisibility(View.GONE);
 			etName.setHint("手机号");
-			etName.setText("");
 			tvPhoneSwitch.setText("邮箱注册");
 			tvTips.setVisibility(View.GONE);
 		} else {
@@ -454,6 +461,9 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 	/*
 	 * 用户注册结果回调接口.
 	 */
+	/* (non-Javadoc)
+	 * @see com.gizwits.framework.activity.BaseActivity#didRegisterUser(int, java.lang.String, java.lang.String, java.lang.String)
+	 */
 	@Override
 	protected void didRegisterUser(int error, String errorMessage, String uid,
 			String token) {
@@ -475,6 +485,9 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.gizwits.framework.activity.BaseActivity#didRequestSendVerifyCode(int, java.lang.String)
+	 */
 	@Override
 	protected void didRequestSendVerifyCode(int error, String errorMessage) {
 		Log.i("error message ", error + " " + errorMessage);

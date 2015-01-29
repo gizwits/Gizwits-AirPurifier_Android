@@ -31,8 +31,7 @@
         android:id="@+id/etName"
         style="@style/EditTextTheme"
         android:layout_marginTop="30dp"
-        android:inputType="phone"
-        android:hint="手机号" />
+        android:hint="手机号/邮箱" />
 
     <Button
         android:id="@+id/btnGetCode"
@@ -76,6 +75,7 @@
             android:id="@+id/etInputPsw"
             style="@style/EditTextTheme"
             android:layout_weight="1"
+            android:digits="@string/register_name_digits"
             android:background="@android:color/transparent"
             android:hint="密码" />
 

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="15dp"
+        android:gravity="center_vertical"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="灵敏度" />
+
+        <RelativeLayout
+            android:layout_marginTop="10dp"
+            android:id="@+id/tvly"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/showLevel_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="一档"
+                android:layout_marginBottom="-10dp"
+                android:textStyle="bold" />
+
+            <SeekBar
+                android:layout_below="@+id/showLevel_tv"
+                android:id="@+id/sensitive_seek"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="4"
+                android:maxHeight="14dp"
+                android:minHeight="14dp"
+                android:progress="1"
+                android:progressDrawable="@drawable/seekbar_img"
+                android:thumb="@drawable/button" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>
