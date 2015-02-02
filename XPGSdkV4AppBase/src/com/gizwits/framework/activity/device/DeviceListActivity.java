@@ -51,7 +51,7 @@ import com.xtremeprog.xpgconnect.XPGWifiDevice;
 
 /**
  * ClassName: Class DeviceListActivity. <br/>
- * 设备列表<br/>
+ * 设备列表，用于显示当前账号环境下的所有设备<br/>
  * date: 2014-12-09 17:27:10 <br/>
  * 
  * @author StephenC
@@ -292,9 +292,9 @@ public class DeviceListActivity extends BaseActivity implements
 				loginDevice(tempDevice);
 				progressDialog.show();
 			} else {
-				// TODO 绑定设备
+				// TODO 未设备
 				Log.i(TAG,
-						"绑定设备:mac=" + tempDevice.getPasscode() + ";ip="
+						"绑定设备:mac=" + tempDevice.getMacAddress() + ";ip="
 								+ tempDevice.getIPAddress() + ";did="
 								+ tempDevice.getDid() + ";passcode="
 								+ tempDevice.getPasscode());
@@ -327,7 +327,7 @@ public class DeviceListActivity extends BaseActivity implements
 	}
 
 	/**
-	 * Login device.
+	 * 登陆设备
 	 * 
 	 * @param xpgWifiDevice
 	 *            the xpg wifi device
@@ -356,7 +356,7 @@ public class DeviceListActivity extends BaseActivity implements
 	}
 
 	/**
-	 * Gets the list.
+	 * 处理获取设备列表动作
 	 * 
 	 * @return the list
 	 */

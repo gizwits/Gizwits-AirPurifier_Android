@@ -26,6 +26,7 @@ import com.gizwits.framework.activity.BaseActivity;
 import com.gizwits.framework.config.JsonKeys;
 import com.gizwits.framework.entity.AdvanceType;
 import com.gizwits.framework.entity.DeviceAlarm;
+import com.xpg.common.useful.DateUtil;
 import com.xtremeprog.xpgconnect.XPGWifiDevice;
 
 /**
@@ -329,23 +330,10 @@ public class AdvancedActivity extends BaseActivity implements
 
 			String action = actions.next().toString();
 			Log.i("revjson", "action=" + action);
-			DeviceAlarm alarm = new DeviceAlarm(getDateCN(new Date()), action);
+			DeviceAlarm alarm = new DeviceAlarm(DateUtil.getDateCN(new Date()), action);
 			alarmList.add(alarm);
 		}
 		handler.sendEmptyMessage(handler_key.ALARM.ordinal());
-	}
-	
-	/**
-	 * 获取格式：2014年6月24日 17:23.
-	 * 
-	 * @param date
-	 *            the date
-	 * @return the date cn
-	 */
-	public static String getDateCN(Date date) {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH:mm");
-		String dateStr = sdf.format(date);
-		return dateStr;
 	}
 
 	/* (non-Javadoc)

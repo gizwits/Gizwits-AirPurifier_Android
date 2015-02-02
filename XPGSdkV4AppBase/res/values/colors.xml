@@ -37,6 +37,7 @@
   
   <color name="background_blue">#297dee</color>
   <color name="background_gray">#eaeaea</color>
+  <color name="background_light_gray">#fefefe</color>
   <color name="background_blue_white">#dbf3fc</color>
   <color name="text_gray">#979797</color>
   <color name="text_black">#4e4e4e</color>

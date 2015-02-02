@@ -15,13 +15,14 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
+            android:padding="10dp"
             android:src="@drawable/return_icon" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="设备管理"
+            android:text="@string/device_manage"
             android:textColor="@android:color/white"
             android:textSize="22sp" />
 
@@ -32,6 +33,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
+            android:padding="10dp"
             android:src="@drawable/add_icon" />
     </RelativeLayout>
 

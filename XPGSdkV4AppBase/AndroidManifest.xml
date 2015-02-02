@@ -46,7 +46,8 @@
         <activity android:name="com.gizwits.framework.activity.account.ChangePswActivity" />
         <activity android:name="com.gizwits.framework.activity.account.ForgetPswActivity" />
         <activity android:name="com.gizwits.framework.activity.account.UserManageActivity" />
-        <activity android:name="com.gizwits.framework.activity.device.DeviceListActivity" />
+        <activity android:name="com.gizwits.framework.activity.device.DeviceListActivity" 
+            	android:launchMode="singleTask"/>
         <activity android:name="com.gizwits.framework.activity.device.DeviceManageListActivity" />
         <activity android:name="com.gizwits.framework.activity.device.DeviceManageDetailActivity" />
         <activity android:name="com.gizwits.framework.activity.onboarding.AirlinkActivity" />
@@ -54,7 +55,8 @@
         <activity android:name="com.gizwits.framework.activity.onboarding.BindingDeviceActivity" />
         <activity android:name="com.gizwits.framework.activity.onboarding.ConfigFailedActivity" />
         <activity android:name="com.gizwits.framework.activity.onboarding.GetPassAndBind" />
-        <activity android:name="com.gizwits.framework.activity.onboarding.SearchDeviceActivity" />
+        <activity android:name="com.gizwits.framework.activity.onboarding.SearchDeviceActivity"
+            android:launchMode="singleTask" />
         <activity android:name="com.gizwits.framework.activity.onboarding.SoftApConfigActivity" />
         <activity android:name="com.gizwits.framework.activity.help.AboutActivity" />
         <activity android:name="com.gizwits.framework.activity.help.HelpActivity" />
@@ -67,7 +69,6 @@
         <activity android:name="com.gizwits.airpurifier.activity.control.AlarmListActicity" />
         <activity android:name="com.gizwits.airpurifier.activity.control.CurveActivity" />
         <activity android:name="com.gizwits.airpurifier.activity.advanced.AdvancedActivity" />
-
     </application>
 
 </manifest>

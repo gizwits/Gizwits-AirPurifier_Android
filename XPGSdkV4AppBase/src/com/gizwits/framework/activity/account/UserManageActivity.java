@@ -36,7 +36,7 @@ import com.xpg.ui.utils.ToastUtils;
 /**
  * 
  * ClassName: Class UserManageActivity. <br/>
- * 用户管理<br/>
+ * 用户管理，用于用户信息管理<br/>
  * date: 2014-12-09 17:27:10 <br/>
  * 
  * @author StephenC

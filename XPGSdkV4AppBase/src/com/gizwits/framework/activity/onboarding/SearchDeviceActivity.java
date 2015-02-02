@@ -39,6 +39,7 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -82,6 +83,11 @@ public class SearchDeviceActivity extends BaseActivity implements
      * The tv tips.
      */
     private TextView tvTips;
+    
+    /**
+     * The iv back.
+     */
+    private ImageView ivBack;
 
     /**
      * The device list.
@@ -143,12 +149,16 @@ public class SearchDeviceActivity extends BaseActivity implements
             handler_key key = handler_key.values()[msg.what];
             switch (key) {
                 case FOUND_FINISH:
+                	if(deviceList.size()>0)
+                		deviceList.clear();
+                	
                     if (allDeviceList.size() > 0) {
                         for (XPGWifiDevice device : allDeviceList) {
                             if (device.isLAN() && !device.isBind(setmanager.getUid())) {
                                 deviceList.add(device);
                             }
                         }
+                        adapter.notifyDataSetChanged();
                         lvDevices.setVisibility(View.VISIBLE);
                         tvTips.setVisibility(View.GONE);
                     } else {
@@ -213,13 +223,14 @@ public class SearchDeviceActivity extends BaseActivity implements
     private void initViews() {
         btnAddQR = (Button) findViewById(R.id.btnAddQR);
         btnAddGokit = (Button) findViewById(R.id.btnAddGokit);
+        ivBack=(ImageView) findViewById(R.id.ivBack);
         lvDevices = (ListView) findViewById(R.id.lvDevices);
         tvTips = (TextView) findViewById(R.id.tvTips);
         loadingDialog = new ProgressDialog(this);
         loadingDialog.setMessage("加载中，请稍候.");
         loadingDialog.setCancelable(false);
         deviceList = new ArrayList<XPGWifiDevice>();
-        adapter = new SearchListAdapter(this, deviceslist);
+        adapter = new SearchListAdapter(this, deviceList);
         lvDevices.setAdapter(adapter);
         noNetworkDialog = DialogManager.getNoNetworkDialog(this);
         noNetworkDialog.setOnCancelListener(new OnCancelListener() {
@@ -230,7 +241,6 @@ public class SearchDeviceActivity extends BaseActivity implements
 
             }
         });
-        deviceList = new ArrayList<XPGWifiDevice>();
         allDeviceList = new ArrayList<XPGWifiDevice>();
     }
 
@@ -241,7 +251,7 @@ public class SearchDeviceActivity extends BaseActivity implements
         btnAddQR.setOnClickListener(this);
         btnAddGokit.setOnClickListener(this);
         lvDevices.setOnItemClickListener(this);
-
+        ivBack.setOnClickListener(this);
     }
 
     /*
@@ -253,7 +263,6 @@ public class SearchDeviceActivity extends BaseActivity implements
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnAddQR:
-
                 if (NetworkUtils.isNetworkConnected(this)) {
                     // 跳转到二维码扫描activity
                     IntentUtils.getInstance().startActivity(this,
@@ -264,11 +273,15 @@ public class SearchDeviceActivity extends BaseActivity implements
                 if (NetworkUtils.isWifiConnected(this)) {
                     // 跳转到添加airlink activity
                     IntentUtils.getInstance().startActivity(SearchDeviceActivity.this, AutoConfigActivity.class);
+                    finish();
                 } else {
                     isWaitingWifi = true;
                     DialogManager.showDialog(this, noNetworkDialog);
                 }
                 break;
+            case R.id.ivBack:
+            	onBackPressed();
+            	break;
         }
 
     }
@@ -297,6 +310,7 @@ public class SearchDeviceActivity extends BaseActivity implements
         intent.putExtra("mac", device.getMacAddress());
         intent.putExtra("did", device.getDid());
         startActivity(intent);
+        finish();
     }
 
     /**
@@ -325,4 +339,10 @@ public class SearchDeviceActivity extends BaseActivity implements
         }
     }
 
+	@Override
+	public void onBackPressed() {
+		finish();
+	}
+
+    
 }

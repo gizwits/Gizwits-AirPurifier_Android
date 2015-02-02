@@ -53,8 +53,8 @@
         android:layout_alignParentBottom="true"
         android:layout_gravity="bottom"
         android:layout_marginBottom="30dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp" >
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp" >
 
         <Button
             android:id="@+id/reset_btn"
