@@ -26,9 +26,15 @@ import com.gizwits.aircondition.R;
  * 
  */
 public class SensitivityFragment extends Fragment {
+	private AdvancedActivity activity;
+	
 	private SeekBar sensitive_seek;
 	private TextView showLevel_tv;
 	private float position;
+	
+	public SensitivityFragment(AdvancedActivity activity){
+		this.activity=activity;
+	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -50,6 +56,7 @@ public class SensitivityFragment extends Fragment {
 			position = width / 4;
 		}
 		initSeekBar();
+		changeSensi(0);
 		return v;
 	}
 
@@ -63,9 +70,9 @@ public class SensitivityFragment extends Fragment {
 						// TODO Auto-generated method stub
 						int prog = seekBar.getProgress();
 						if (prog == 0) {
-//							cmdCenter.setSensitivity(1);
+							activity.sendSensitivityLv(1);
 						} else {
-//							cmdCenter.setSensitivity(prog);
+							activity.sendSensitivityLv(prog);
 						}
 					}
 

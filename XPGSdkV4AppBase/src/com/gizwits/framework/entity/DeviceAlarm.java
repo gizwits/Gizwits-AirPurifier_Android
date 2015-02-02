@@ -39,6 +39,13 @@ public class DeviceAlarm implements Serializable {
 	
 	/** The desc. */
 	private String desc;
+	
+	/**
+	 * Instantiates a new control device.
+	 */
+	public DeviceAlarm() {
+
+	}
 
 	/**
 	 * Instantiates a new control device.

@@ -25,7 +25,6 @@ import android.util.Log;
 
 import com.gizwits.framework.config.Configs;
 import com.gizwits.framework.config.JsonKeys;
-import com.xpg.common.useful.StringUtils;
 import com.xtremeprog.xpgconnect.XPGWifiDevice;
 import com.xtremeprog.xpgconnect.XPGWifiSDK;
 import com.xtremeprog.xpgconnect.XPGWifiSDK.XPGWifiConfigureMode;
@@ -374,9 +373,9 @@ public class CmdCenter {
 	 * @param xpgWifiDevice
 	 * @param isOn
 	 */
-	public void cSwitchOn(XPGWifiDevice xpgWifiDevice, boolean isOn) {
+	public void cSwitchOn(final XPGWifiDevice xpgWifiDevice, boolean isOn) {
 		cWrite(xpgWifiDevice, JsonKeys.ON_OFF, isOn);
-		cGetStatus(xpgWifiDevice);
+		getStatus(xpgWifiDevice);
 	}
 	
 	/**
@@ -386,7 +385,7 @@ public class CmdCenter {
 	 */
 	public void cCountDownOn(XPGWifiDevice xpgWifiDevice, int min) {
 		cWrite(xpgWifiDevice, JsonKeys.TIME_ON, min);
-		cGetStatus(xpgWifiDevice);
+		getStatus(xpgWifiDevice);
 	}
 
 	
@@ -397,7 +396,7 @@ public class CmdCenter {
 	 */
 	public void cCountDownOff(XPGWifiDevice xpgWifiDevice, int min) {
 		cWrite(xpgWifiDevice, JsonKeys.TIME_OFF, min);
-		cGetStatus(xpgWifiDevice);
+		getStatus(xpgWifiDevice);
 	}
 	
 	/**
@@ -405,9 +404,9 @@ public class CmdCenter {
 	 * @param xpgWifiDevice
 	 * @param isOn
 	 */
-	public void cSetSpeed(XPGWifiDevice xpgWifiDevice, String lv) {
+	public void cSetSpeed(XPGWifiDevice xpgWifiDevice, int lv) {
 		cWrite(xpgWifiDevice, JsonKeys.FAN_SPEED, lv);
-		cGetStatus(xpgWifiDevice);
+		getStatus(xpgWifiDevice);
 	}
 	
 	/**
@@ -417,7 +416,7 @@ public class CmdCenter {
 	 */
 	public void cSwitchPlasma(XPGWifiDevice xpgWifiDevice, boolean isOn) {
 		cWrite(xpgWifiDevice, JsonKeys.Plasma, isOn);
-		cGetStatus(xpgWifiDevice);
+		getStatus(xpgWifiDevice);
 	}
 	
 	/**
@@ -427,7 +426,7 @@ public class CmdCenter {
 	 */
 	public void cLED(XPGWifiDevice xpgWifiDevice, boolean isOn) {
 		cWrite(xpgWifiDevice, JsonKeys.LED, isOn);
-		cGetStatus(xpgWifiDevice);
+		getStatus(xpgWifiDevice);
 	}
 	
 	/**
@@ -437,7 +436,7 @@ public class CmdCenter {
 	 */
 	public void cChildLock(XPGWifiDevice xpgWifiDevice, boolean isOn) {
 		cWrite(xpgWifiDevice, JsonKeys.Child_Lock, isOn);
-		cGetStatus(xpgWifiDevice);
+		getStatus(xpgWifiDevice);
 	}
 	
 	/**
@@ -447,7 +446,7 @@ public class CmdCenter {
 	 */
 	public void cResetLife(XPGWifiDevice xpgWifiDevice) {
 		cWrite(xpgWifiDevice, JsonKeys.Filter_Life, 100);
-		cGetStatus(xpgWifiDevice);
+		getStatus(xpgWifiDevice);
 	}
 	
 	/**
@@ -457,8 +456,20 @@ public class CmdCenter {
 	 */
 	public void cAirSensitivity(XPGWifiDevice xpgWifiDevice, int lv) {
 		cWrite(xpgWifiDevice, JsonKeys.Air_Sensitivity, lv);
-		cGetStatus(xpgWifiDevice);
+		getStatus(xpgWifiDevice);
 	}
 	
-	
+	/**
+	 * 延时查询数据
+	 * @param xpgWifiDevice
+	 */
+	public void getStatus(final XPGWifiDevice xpgWifiDevice){
+		try {
+			Thread.sleep(100);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		cGetStatus(xpgWifiDevice);
+	}
 }

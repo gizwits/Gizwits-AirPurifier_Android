@@ -17,6 +17,9 @@
  */
 package com.gizwits.framework.adapter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,9 +32,6 @@ import com.gizwits.aircondition.R;
 import com.gizwits.framework.sdk.SettingManager;
 import com.gizwits.framework.utils.StringUtils;
 import com.xtremeprog.xpgconnect.XPGWifiDevice;
-
-import java.util.ArrayList;
-import java.util.List;
 
 // TODO: Auto-generated Javadoc
 

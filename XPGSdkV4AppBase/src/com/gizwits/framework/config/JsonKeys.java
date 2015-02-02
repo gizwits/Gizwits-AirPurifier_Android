@@ -93,8 +93,7 @@ public class JsonKeys {
     /**
      * Timing_On
      */
-    public final static String Timing_On = "" +
-    		"Timing_On";
+    public final static String Timing_On = "Timing_On";
     /**
      * Timing_Off
      */
@@ -107,5 +106,10 @@ public class JsonKeys {
      * Week_Repeat
      */
     public final static String Week_Repeat = "Week_Repeat";
+    
+    /**
+     * Air_Quality
+     */
+    public final static String Air_Quality = "Air_Quality";
 
 }

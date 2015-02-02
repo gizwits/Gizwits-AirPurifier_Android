@@ -1,7 +1,6 @@
 package com.gizwits.airpurifier.activity.control;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import android.content.Intent;
 import android.net.Uri;

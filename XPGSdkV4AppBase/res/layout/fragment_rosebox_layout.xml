@@ -1,138 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="滤网"
-        android:textSize="20sp" />
+    <FrameLayout
+        android:id="@+id/roseCircleSeekbar_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_centerInParent="true" >
+
+        <com.gizwits.framework.views.RoseBoxSeekBarView
+            android:id="@+id/roseCircleSeekbar"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" />    </FrameLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:id="@+id/tips_layout"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:orientation="vertical" >
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:gravity="center_vertical" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_marginRight="20dp"
-                android:text="滤网寿命" />
-
-            <TextView
-                android:id="@+id/total_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:text="200天" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:gravity="center_vertical" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_marginRight="20dp"
-                android:text="已使用天数：" />
-
-            <TextView
-                android:id="@+id/usedTime_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:text="18天" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:gravity="center_vertical" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_marginRight="20dp"
-                android:text="剩余天数：" />
-
-            <TextView
-                android:id="@+id/leftTime_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:text="100天" />
-        </RelativeLayout>
-    </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:gravity="center_vertical" >
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_centerVertical="true"
-            android:background="#000000" />
-
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:background="@color/white"
-            android:gravity="center"
-            android:text="滤网状态"
-            android:textSize="20sp" />
-    </RelativeLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center" >
+        android:layout_above="@+id/roseCircleSeekbar_layout"
+       android:layout_marginBottom="20dp"
+       android:layout_marginTop="10dp"
+        android:gravity="center_horizontal|bottom" >
 
         <ImageView
-            android:id="@+id/statusIcon_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/good" />
+            android:padding="5dp"
+            android:src="@drawable/rb_icon_statu" />
 
         <TextView
-            android:id="@+id/statusTxt_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="正常"
-            android:textSize="20sp" />
+            android:text="滤网状态："
+            android:textColor="@color/gray"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/statues"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="获取中"
+            android:textSize="36sp" />
     </LinearLayout>
 
-    <View
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/bottomLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1" />
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp" >
 
-    <Button
-        android:id="@+id/resetRosebox_btn"
-        android:layout_width="180dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center_horizontal|bottom"
-        android:layout_margin="20dp"
-        android:background="@drawable/bt_bg"
-        android:text="滤网复位"
-        android:textColor="#ffffff" />
+        <Button
+            android:id="@+id/reset_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bt_bg"
+            android:text="滤网复位"
+            android:textColor="@color/white" />
+    </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

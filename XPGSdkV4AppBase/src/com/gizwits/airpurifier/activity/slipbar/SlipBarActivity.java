@@ -29,6 +29,7 @@ import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 
 import com.gizwits.aircondition.R;
+import com.gizwits.airpurifier.activity.advanced.AdvancedActivity;
 import com.gizwits.airpurifier.activity.control.AirPurActivity;
 import com.gizwits.framework.activity.BaseActivity;
 import com.gizwits.framework.activity.account.UserManageActivity;
@@ -46,6 +47,8 @@ import com.xtremeprog.xpgconnect.XPGWifiDevice;
 public class SlipBarActivity extends BaseActivity implements OnClickListener {
     private RelativeLayout rlDevice;
     private RelativeLayout rlAccount;
+    private RelativeLayout rlFunction;
+    private RelativeLayout rlCount;
     private RelativeLayout rlHelp;
     private RelativeLayout rlAbout;
     private Button btnDeviceList;
@@ -158,6 +161,8 @@ public class SlipBarActivity extends BaseActivity implements OnClickListener {
     private void initViews() {
         rlDevice = (RelativeLayout) findViewById(R.id.rlDevice);
         rlAccount = (RelativeLayout) findViewById(R.id.rlAccount);
+        rlFunction = (RelativeLayout) findViewById(R.id.rlFunction);
+        rlCount = (RelativeLayout) findViewById(R.id.rlCount);
         rlHelp = (RelativeLayout) findViewById(R.id.rlHelp);
         rlAbout = (RelativeLayout) findViewById(R.id.rlAbout);
         lvDevice = (ListView) findViewById(R.id.lvDevice);
@@ -173,6 +178,8 @@ public class SlipBarActivity extends BaseActivity implements OnClickListener {
     private void initEvents() {
         rlDevice.setOnClickListener(this);
         rlAccount.setOnClickListener(this);
+        rlFunction.setOnClickListener(this);
+        rlCount.setOnClickListener(this);
         rlHelp.setOnClickListener(this);
         rlAbout.setOnClickListener(this);
         btnDeviceList.setOnClickListener(this);
@@ -217,6 +224,14 @@ public class SlipBarActivity extends BaseActivity implements OnClickListener {
             case R.id.rlAccount:
                 IntentUtils.getInstance().startActivity(SlipBarActivity.this,
                         UserManageActivity.class);
+                break;
+            case R.id.rlFunction:
+                IntentUtils.getInstance().startActivity(SlipBarActivity.this,
+                        AdvancedActivity.class);
+                break;
+            case R.id.rlCount:
+//                IntentUtils.getInstance().startActivity(SlipBarActivity.this,
+//                        UserManageActivity.class);
                 break;
             case R.id.rlHelp:
                 IntentUtils.getInstance().startActivity(SlipBarActivity.this,

@@ -63,9 +63,10 @@
              android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden"  />
         <activity android:name="com.gizwits.airpurifier.activity.slipbar.SlipBarActivity" />
-        <activity android:name="com.gizwits.airpurifier.activity.control.AirPurActivity" />
+        <activity android:screenOrientation="portrait" android:name="com.gizwits.airpurifier.activity.control.AirPurActivity" />
         <activity android:name="com.gizwits.airpurifier.activity.control.AlarmListActicity" />
         <activity android:name="com.gizwits.airpurifier.activity.control.CurveActivity" />
+        <activity android:name="com.gizwits.airpurifier.activity.advanced.AdvancedActivity" />
 
     </application>
 

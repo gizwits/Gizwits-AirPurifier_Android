@@ -42,5 +42,9 @@
   <color name="text_black">#4e4e4e</color>
   <color name="text_blue">#298eee</color>
   <color name="text_red">#fe631f</color>
-    
+  
+  <!-- rosebox color -->
+  <color name="circle_color">#E1E2E6</color>
+  <color name ="rb_text_normal">#1585D2</color>
+  <color name ="rb_text_error">#D54d00</color>
 </resources>
