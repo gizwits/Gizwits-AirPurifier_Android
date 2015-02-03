@@ -188,7 +188,7 @@ public class AdvancedActivity extends BaseActivity implements
 		// 开启事物，添加第一个fragment
 		fragmentManager = getFragmentManager();
 		sensitivityFragment = new SensitivityFragment(this);
-		roseboxFragment = new RoseboxFragment();
+		roseboxFragment = new RoseboxFragment(this);
 		alarmFragment = new AlarmFragment(this);
 	}
 

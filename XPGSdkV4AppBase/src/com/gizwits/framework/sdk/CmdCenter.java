@@ -464,12 +464,12 @@ public class CmdCenter {
 	 * @param xpgWifiDevice
 	 */
 	public void getStatus(final XPGWifiDevice xpgWifiDevice){
-		try {
-			Thread.sleep(100);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			Thread.sleep(100);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		cGetStatus(xpgWifiDevice);
 	}
 }

@@ -69,6 +69,7 @@
         <activity android:name="com.gizwits.airpurifier.activity.control.AlarmListActicity" />
         <activity android:name="com.gizwits.airpurifier.activity.control.CurveActivity" />
         <activity android:name="com.gizwits.airpurifier.activity.advanced.AdvancedActivity" />
+        <activity android:name="com.gizwits.airpurifier.activity.ChartActivity" />
     </application>
 
 </manifest>

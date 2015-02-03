@@ -1,5 +1,6 @@
 package com.gizwits.airpurifier.activity.advanced;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.Fragment;
 import android.os.Bundle;
@@ -22,6 +23,8 @@ import com.gizwits.framework.views.RoseBoxSeekBarView;
  * 
  */
 public class RoseboxFragment extends Fragment implements OnClickListener {
+	private AdvancedActivity advancedActivity;
+	
 	private Dialog resetDialog;
 	
 	private RoseBoxSeekBarView mRoseBoxSeekBarView;
@@ -29,6 +32,8 @@ public class RoseboxFragment extends Fragment implements OnClickListener {
 	private Button btnReset;
 	
 	private int lv = 1000;
+	
+	private Dialog dialog = null;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -45,8 +50,9 @@ public class RoseboxFragment extends Fragment implements OnClickListener {
 				});
 	}
 
-	public RoseboxFragment() {
+	public RoseboxFragment(AdvancedActivity activity) {
 		// TODO Auto-generated constructor stub
+		advancedActivity = activity;
 	}
 	
 	@Override
@@ -56,6 +62,23 @@ public class RoseboxFragment extends Fragment implements OnClickListener {
 		mRoseBoxSeekBarView = (RoseBoxSeekBarView) v.findViewById(R.id.roseCircleSeekbar);
 		tvStatu = (TextView) v.findViewById(R.id.statues);
 		btnReset = (Button) v.findViewById(R.id.reset_btn);
+		btnReset.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				dialog = DialogManager.getResetRoseboxDialog(advancedActivity, new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						advancedActivity.resetRosebox();
+						dialog.dismiss();
+					}
+				});
+				dialog.show();
+			}
+		});
 		return v;
 	}
 

@@ -29,6 +29,7 @@ import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 
 import com.gizwits.aircondition.R;
+import com.gizwits.airpurifier.activity.ChartActivity;
 import com.gizwits.airpurifier.activity.advanced.AdvancedActivity;
 import com.gizwits.airpurifier.activity.control.AirPurActivity;
 import com.gizwits.framework.activity.BaseActivity;
@@ -230,8 +231,8 @@ public class SlipBarActivity extends BaseActivity implements OnClickListener {
                         AdvancedActivity.class);
                 break;
             case R.id.rlCount:
-//                IntentUtils.getInstance().startActivity(SlipBarActivity.this,
-//                        UserManageActivity.class);
+                IntentUtils.getInstance().startActivity(SlipBarActivity.this,
+                        ChartActivity.class);
                 break;
             case R.id.rlHelp:
                 IntentUtils.getInstance().startActivity(SlipBarActivity.this,

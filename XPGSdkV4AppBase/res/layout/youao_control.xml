@@ -362,52 +362,107 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="-19dp"
+            android:layout_marginBottom="-7dp"
             android:gravity="center"
             android:orientation="vertical" >
 
             <ImageView
-                android:id="@+id/setTimeOff_iv"
+                android:id="@+id/bottom_push"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
-                android:src="@drawable/bottom_menu" />
+                android:src="@drawable/bottom_1" />
+            
+            <ImageView
+                android:id="@+id/push_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="36dp"
+                android:src="@drawable/arrow_1" />
         </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/functions_layout"
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:layout_marginBottom="-76dp"
-            android:background="@drawable/bottom"
-            android:gravity="center_vertical"
+            android:layout_marginBottom="-81dp"
+            android:background="@color/white"
+            android:gravity="center"
             android:orientation="horizontal"
-            android:padding="10dp"
             android:visibility="visible" >
+			<LinearLayout 
+			    android:id="@+id/plasmaO_ll"
+	            android:layout_width="80dp"
+	            android:layout_height="wrap_content"
+	            android:gravity="center"
+	            android:orientation="vertical">
+	            <ImageView
+			    	android:id="@+id/plasmaO_iv"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:src="@drawable/icon_3" />
+	            <TextView
+			    	android:id="@+id/plasmaO_tv"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:text="等离子" />
+			</LinearLayout>
+			<LinearLayout 
+			    android:id="@+id/childLockO_ll"
+	            android:layout_width="80dp"
+	            android:layout_height="wrap_content"
+	            android:gravity="center"
+	            android:orientation="vertical">
+	            <ImageView
+			    	android:id="@+id/childLockO_iv"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:src="@drawable/icon_2" />
+	            <TextView
+			    	android:id="@+id/childLockO_tv"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:text=" 童锁 " />
+			</LinearLayout>
+			<LinearLayout 
+			    android:id="@+id/qualityLightO_ll"
+	            android:layout_width="80dp"
+	            android:layout_height="wrap_content"
+	            android:gravity="center"
+	            android:orientation="vertical">
+	            <ImageView
+			   		android:id="@+id/qualityLightO_iv"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:src="@drawable/icon_1" />
+	            <TextView
+			    	android:id="@+id/qualityLightO_tv"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:text="空气质量" />
+			</LinearLayout>
+			<LinearLayout 
+			    android:id="@+id/timingOff_ll"
+	            android:layout_width="80dp"
+	            android:layout_height="wrap_content"
+	            android:gravity="center"
+	            android:orientation="vertical">
+	            <ImageView
+			    	android:id="@+id/timingOff_iv"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:src="@drawable/icon_4" />
+	            <TextView
+			    	android:id="@+id/timingOff_tv"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:text="定时关机" />
+			</LinearLayout>
 
-            <ImageView
-                android:id="@+id/plasmaO_iv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/icon8" />
-
-            <ImageView
-                android:id="@+id/childLockO_iv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/icon9" />
-
-            <ImageView
-                android:id="@+id/qualityLightO_iv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/icon10"
-                android:tag="0" />
         </LinearLayout>
     </LinearLayout>
 
