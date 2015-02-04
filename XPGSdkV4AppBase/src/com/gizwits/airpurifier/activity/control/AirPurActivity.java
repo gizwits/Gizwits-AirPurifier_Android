@@ -48,9 +48,9 @@ import com.xtremeprog.xpgconnect.XPGWifiDevice;
 public class AirPurActivity extends BaseActivity implements OnClickListener,OnTouchListener {
 	private final String TAG = "AirPurActivity";
 	
-	private LinearLayout timingOn_layout;
-	private TextView timingOn_tv;
-	private Dialog timeDialog;
+	private LinearLayout timingOn_layout;//定时开机layout
+	private TextView timingOn_tv;//定时开机文字显示
+	private Dialog timeDialog;//设置时间dialog
 	private ImageView push_iv;//底部箭头
 	private ImageView ivTitleRight;//左上角菜单按钮
 	private TextView tvTitle;//顶部文字
@@ -67,13 +67,13 @@ public class AirPurActivity extends BaseActivity implements OnClickListener,OnTo
 	private TextView pm10_tv;//展示pm10
 	private LinearLayout palasmaO_ll;//离子开关按钮timingOff_ll
 	private ImageView palasmaO_iv;//离子开关按钮ImageView
-	private TextView palasmaO_tv;//离子开关按钮TextView
+//	private TextView palasmaO_tv;//离子开关按钮TextView
 	private LinearLayout childLockO_ll;//童锁开关按钮timingOff_ll
 	private ImageView childLockO_iv;//童锁开关按钮ImageView
-	private TextView childLockO_tv;//童锁开关按钮TextView
+//	private TextView childLockO_tv;//童锁开关按钮TextView
 	private LinearLayout qualityLightO_ll;//空气灯开关按钮timingOff_ll
 	private ImageView qualityLightO_iv;//空气灯开关按钮ImageView
-	private TextView qualityLightO_tv;//空气灯开关按钮TextView
+//	private TextView qualityLightO_tv;//空气灯开关按钮TextView
 	private LinearLayout timingOff_ll;//定时关机按钮timingOff_ll
 	private ImageView timingOff_iv;//定时关机按钮ImageView
 	private TextView timingOff_tv;//定时关机按钮TextView
@@ -95,8 +95,6 @@ public class AirPurActivity extends BaseActivity implements OnClickListener,OnTo
 	float mR = 0;
 	float mW = 0;
 	float mW100 = 0;
-	private float mBgW = 0;
-	private int select_id;//选中的id
 	/** The is click. */
 	private boolean isClick;
 	/** The device data map. */
@@ -187,15 +185,15 @@ public class AirPurActivity extends BaseActivity implements OnClickListener,OnTo
 		//********************隐藏的功能键********************
 		bottom_push = (ImageView) findViewById(R.id.bottom_push);
 		bottom_push.setOnTouchListener(onTouchListener);
-		palasmaO_tv = (TextView) findViewById(R.id.plasmaO_tv);
+//		palasmaO_tv = (TextView) findViewById(R.id.plasmaO_tv);
 		palasmaO_iv = (ImageView) findViewById(R.id.plasmaO_iv);
 		palasmaO_ll = (LinearLayout) findViewById(R.id.plasmaO_ll);
 		palasmaO_ll.setOnClickListener(this);
-		childLockO_tv = (TextView) findViewById(R.id.childLockO_tv);
+//		childLockO_tv = (TextView) findViewById(R.id.childLockO_tv);
 		childLockO_iv = (ImageView) findViewById(R.id.childLockO_iv);
 		childLockO_ll = (LinearLayout) findViewById(R.id.childLockO_ll);
 		childLockO_ll.setOnClickListener(this);
-		qualityLightO_tv = (TextView) findViewById(R.id.qualityLightO_tv);
+//		qualityLightO_tv = (TextView) findViewById(R.id.qualityLightO_tv);
 		qualityLightO_iv = (ImageView) findViewById(R.id.qualityLightO_iv);
 		qualityLightO_ll = (LinearLayout) findViewById(R.id.qualityLightO_ll);
 		qualityLightO_ll.setOnClickListener(this);
@@ -297,6 +295,7 @@ public class AirPurActivity extends BaseActivity implements OnClickListener,OnTo
 	public void onBackPressed() {
 		// TODO Auto-generated method stub
 		super.onBackPressed();
+		//注销设备
 		if (mXpgWifiDevice != null && mXpgWifiDevice.isConnected()) {
 			mCenter.cDisconnect(mXpgWifiDevice);
 			mXpgWifiDevice = null;
@@ -322,8 +321,6 @@ public class AirPurActivity extends BaseActivity implements OnClickListener,OnTo
 			Intent intent = new Intent(this, AdvancedActivity.class);
 			intent.putExtra("advanced_set", AdvanceType.alarm);
 			startActivity(intent);
-			break;
-		case R.id.reConn_btn:
 			break;
 		case R.id.childLockO_ll:
 			if (childLockO_ll.getTag().toString() == "0") {
@@ -479,21 +476,17 @@ public class AirPurActivity extends BaseActivity implements OnClickListener,OnTo
 		reAll();
 		if (speed == 2) {
 			setSilentAnimation();
-			select_id=4;
 		} 
 		if (speed == 1) {
 			setStandarAnimation();
-			select_id=2;
 		} 
 
 		if (speed == 0) {
 			setStrongAnimation();
-			select_id=1;
 		} 
 
 		if (speed == 3) {
 			setAutoAnimation();
-			select_id=5;
 		} 
 
 	}
@@ -529,6 +522,10 @@ public class AirPurActivity extends BaseActivity implements OnClickListener,OnTo
 		}
 	}
 
+	/**
+	 * 设置童锁按钮以及显示iv
+	 * @param isOn
+	 */
 	public void setChildLock(boolean isOn) {
 		if (isOn) {
 			childLockO_iv.setImageResource(R.drawable.icon_2_2);
@@ -541,6 +538,10 @@ public class AirPurActivity extends BaseActivity implements OnClickListener,OnTo
 		}
 	}
 
+	/**
+	 * 设置等离子按钮以及显示iv
+	 * @param isOn
+	 */
 	public void setPlasma(boolean isOn) {
 		if (isOn) {
 			palasmaO_iv.setImageResource(R.drawable.icon_3_2);
@@ -553,6 +554,10 @@ public class AirPurActivity extends BaseActivity implements OnClickListener,OnTo
 		}
 	}
 
+	/**
+	 * 设置灯光按钮以及显示iv
+	 * @param isOn
+	 */
 	public void setIndicatorLight(boolean isOn) {
 		if (isOn) {
 			qualityLightO_iv.setImageResource(R.drawable.icon_1_2);

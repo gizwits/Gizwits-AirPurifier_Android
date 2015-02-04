@@ -45,6 +45,10 @@ public class AlarmFragment extends Fragment {
 		return v;
 	}
 	
+	/**
+	 * update alarm infos datas
+	 * @param infos
+	 */
 	public void addInfos(List<DeviceAlarm> infos){
 		this.infos.clear();
 		for (DeviceAlarm deviceAlarm : infos) {

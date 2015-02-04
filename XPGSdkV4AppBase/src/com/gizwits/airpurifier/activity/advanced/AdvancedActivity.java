@@ -42,11 +42,14 @@ public class AdvancedActivity extends BaseActivity implements
 	private TextView title_tv;
 	private ImageView ivLeft;
 
+	//三个fragment
 	private FragmentManager fragmentManager;
 	private FragmentTransaction fragmentTransaction;
 	private SensitivityFragment sensitivityFragment;
 	private AlarmFragment alarmFragment;
 	private RoseboxFragment roseboxFragment;
+	
+	//顶部按钮
 	private Button sensitivity_btn;
 	private Button rosebox_btn;
 	private Button alarm_btn;

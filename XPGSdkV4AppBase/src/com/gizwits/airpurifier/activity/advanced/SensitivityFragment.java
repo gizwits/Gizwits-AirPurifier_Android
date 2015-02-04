@@ -144,6 +144,10 @@ public class SensitivityFragment extends Fragment {
 		showLevel_tv.setLayoutParams(params);
 	}
 
+	/**
+	 * change sensi function
+	 * @param level
+	 */
 	public void changeSensi(int level) {
 		if (sensitive_seek == null)
 			return;

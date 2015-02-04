@@ -92,6 +92,7 @@ public class RoseboxFragment extends Fragment implements OnClickListener {
 		lv = level;
 	}
 	
+	//update rosbox data
 	public void updateStatus(int level) {
 		switch (level) {
 		case 0:
