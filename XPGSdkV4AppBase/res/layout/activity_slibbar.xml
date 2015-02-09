@@ -159,7 +159,7 @@
                 android:layout_centerVertical="true"
                 android:layout_margin="10dp"
                 android:layout_toRightOf="@+id/iconCount"
-                android:text="检测统计" />
+                android:text="监测统计" />
 
             <ImageView
                 android:layout_width="wrap_content"

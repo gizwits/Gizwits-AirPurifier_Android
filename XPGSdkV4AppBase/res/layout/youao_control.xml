@@ -115,7 +115,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tips_tv"
             android:gravity="center"
-            android:text="优"
+            android:text="良"
             android:textColor="@color/white"
             android:textSize="130sp" />
 

@@ -1,3 +1,20 @@
+/**
+ * Project Name:XPGSdkV4AppBase
+ * File Name:SlipBarActivity.java
+ * Package Name:com.gizwits.aircondition.activity.slipbar
+ * Date:2015-1-27 14:44:46
+ * Copyright (c) 2014~2015 Xtreme Programming Group, Inc.
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), 
+ * to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+ * and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+ * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
 package com.gizwits.airpurifier.activity.slipbar;
 
 import java.util.List;
@@ -227,20 +244,15 @@ public class SlipBarActivity extends BaseActivity implements OnClickListener {
 	private void initViews() {
 		rlDevice = (RelativeLayout) findViewById(R.id.rlDevice);
 		rlAccount = (RelativeLayout) findViewById(R.id.rlAccount);
-		rlFunction = (RelativeLayout) findViewById(R.id.rlFunction);
-        rlCount = (RelativeLayout) findViewById(R.id.rlCount);
 		rlHelp = (RelativeLayout) findViewById(R.id.rlHelp);
 		rlAbout = (RelativeLayout) findViewById(R.id.rlAbout);
+		rlFunction = (RelativeLayout) findViewById(R.id.rlFunction);
+        rlCount = (RelativeLayout) findViewById(R.id.rlCount);
 		lvDevice = (ListView) findViewById(R.id.lvDevice);
 		btnDeviceList = (Button) findViewById(R.id.btnDeviceList);
 		mCover = (ImageView) findViewById(R.id.slidedout_cover);
 		mAdapter = new DeviceAdapter(this, bindlist);
 		lvDevice.setAdapter(mAdapter);
-		for (int i = 0; i < bindlist.size(); i++) {
-			if (bindlist.get(i).getDid()
-					.equalsIgnoreCase(mXpgWifiDevice.getDid()))
-				mAdapter.setChoosedPos(i);
-		}
 		progressDialog = new ProgressDialog(SlipBarActivity.this);
 		progressDialog.setCancelable(false);
 		progressDialog.setMessage("设备连接中，请稍候。");
@@ -280,15 +292,13 @@ public class SlipBarActivity extends BaseActivity implements OnClickListener {
 	public void onResume() {
 		super.onResume();
 		initBindList();
-		mAdapter.notifyDataSetChanged();
-		if (bindlist.size() == 0) {
-			startActivity(new Intent(this, DeviceListActivity.class));
-			//注销设备
-			if (mXpgWifiDevice != null && mXpgWifiDevice.isConnected()) {
-				mCenter.cDisconnect(mXpgWifiDevice);
-				mXpgWifiDevice = null;
-			}
+		mAdapter.setChoosedPos(-1);
+		for (int i = 0; i < bindlist.size(); i++) {
+			if (bindlist.get(i).getDid()
+					.equalsIgnoreCase(mXpgWifiDevice.getDid()))
+				mAdapter.setChoosedPos(i);
 		}
+		mAdapter.notifyDataSetChanged();
 	}
 
 	/**
@@ -341,7 +351,6 @@ public class SlipBarActivity extends BaseActivity implements OnClickListener {
         case R.id.rlCount:
             IntentUtils.getInstance().startActivity(SlipBarActivity.this,
                     ChartActivity.class);
-            break;
 		case R.id.rlHelp:
 			IntentUtils.getInstance().startActivity(SlipBarActivity.this,
 					HelpActivity.class);
@@ -557,7 +566,7 @@ public class SlipBarActivity extends BaseActivity implements OnClickListener {
 
 		/** The ctx. */
 		private Context ctx;
-
+		
 		/**
 		 * Gets the choosed pos.
 		 * 
@@ -649,7 +658,6 @@ public class SlipBarActivity extends BaseActivity implements OnClickListener {
 			return convertView;
 
 		}
-
 	}
 
 	/**

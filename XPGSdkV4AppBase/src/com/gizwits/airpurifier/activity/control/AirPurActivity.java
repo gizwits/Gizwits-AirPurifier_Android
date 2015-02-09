@@ -669,7 +669,6 @@ public class AirPurActivity extends BaseActivity implements OnClickListener,OnTo
 	@Override
 	protected void didDisconnected(XPGWifiDevice device) {
 		super.didDisconnected(device);
-		this.finish();
 	}
 	
 	@Override
