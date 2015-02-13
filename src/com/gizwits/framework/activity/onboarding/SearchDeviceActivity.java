@@ -268,6 +268,8 @@ public class SearchDeviceActivity extends BaseActivity implements
                     // 跳转到二维码扫描activity
                     IntentUtils.getInstance().startActivity(this,
                             CaptureActivity.class);
+                }else{
+                	Toast.makeText(this, R.string.please_connect_network, Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.btnAddGokit:
