@@ -43,6 +43,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+
 import com.gizwits.aircondition.R;
 import com.gizwits.framework.activity.BaseActivity;
 import com.gizwits.framework.adapter.SearchListAdapter;

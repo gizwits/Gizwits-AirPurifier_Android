@@ -26,6 +26,7 @@ package com.gizwits.framework.config;
  * @author Lien
  */
 public class JsonKeys {
+
     /**
      * 产品名
      */

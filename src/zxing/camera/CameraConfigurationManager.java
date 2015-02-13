@@ -16,6 +16,7 @@
 
 package zxing.camera;
 
+
 import java.lang.reflect.Method;
 import java.util.regex.Pattern;
 
@@ -26,6 +27,7 @@ import android.os.Build;
 import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
+
 
 final class CameraConfigurationManager {
 

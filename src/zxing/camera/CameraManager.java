@@ -16,6 +16,7 @@
 
 package zxing.camera;
 
+
 import java.io.IOException;
 
 import android.content.Context;
@@ -27,6 +28,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.util.Log;
 import android.view.SurfaceHolder;
+
 
 /**
  * This object wraps the Camera service object and expects to be the only one talking to it. The

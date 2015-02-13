@@ -28,8 +28,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gizwits.aircondition.R;
+
 import com.gizwits.framework.utils.StringUtils;
 import com.xtremeprog.xpgconnect.XPGWifiDevice;
+
 
 // TODO: Auto-generated Javadoc
 /**

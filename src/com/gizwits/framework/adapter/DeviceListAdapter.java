@@ -17,6 +17,7 @@
  */
 package com.gizwits.framework.adapter;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +33,7 @@ import com.gizwits.aircondition.R;
 import com.gizwits.framework.sdk.SettingManager;
 import com.gizwits.framework.utils.StringUtils;
 import com.xtremeprog.xpgconnect.XPGWifiDevice;
+
 
 // TODO: Auto-generated Javadoc
 

@@ -19,6 +19,8 @@ package com.gizwits.framework.sdk;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.provider.Settings.Secure;
+import android.util.Log;
 
 // TODO: Auto-generated Javadoc
 /**
