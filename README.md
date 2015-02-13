@@ -1,23 +1,18 @@
-智能云空调
+智能云净化器
 =============
 
 Gizwits Air Condition Android Demo App
 
 功能介绍
 
-<<<<<<< HEAD
-这是一款使用XPGWifiSDK的开源代码示例APP，可以帮助开发者快速入手，使用XPGWifiSDK开发连接机智云的物联APP。
-该APP针对的是智能家电中的空调类产品。
-=======
-▪这是一款使用XPGWifiSDK的开源代码示例APP，可以帮助开发者快速入手，使用XPGWifiSDK开发连接机智云的物联APP。
-▪该APP针对的是智能家电中的空调类产品。
->>>>>>> refs/heads/master
 
-<<<<<<< HEAD
-包括了以下几点空调常用功能：
-=======
+▪这是一款使用XPGWifiSDK的开源代码示例APP，可以帮助开发者快速入手，使用XPGWifiSDK开发连接机智云的物联APP。
+▪该APP针对的是智能家电中的净化器类产品。
+
+
+
 ▪包括了以下几点空调常用功能：
->>>>>>> refs/heads/master
+
 
 1.空调电源的开关
 2.空调运行模式的切换，制冷，制热，抽湿，自动等
