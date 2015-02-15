@@ -134,7 +134,7 @@ public class AirPurActivity extends BaseActivity implements OnClickListener,OnTo
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.youao_control);
+		setContentView(R.layout.activity_airpur_control);
 		initUI();
 		statuMap = new ConcurrentHashMap<String, Object>();//设备状态数据
 		alarmList = new ArrayList<DeviceAlarm>();//警报状态数据
