@@ -1,4 +1,4 @@
-package com.gizwits.airpurifier.activity.control;
+	package com.gizwits.airpurifier.activity.control;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -67,13 +67,10 @@ public class AirPurActivity extends BaseActivity implements OnClickListener,OnTo
 	private TextView pm10_tv;//展示pm10
 	private LinearLayout palasmaO_ll;//离子开关按钮timingOff_ll
 	private ImageView palasmaO_iv;//离子开关按钮ImageView
-//	private TextView palasmaO_tv;//离子开关按钮TextView
 	private LinearLayout childLockO_ll;//童锁开关按钮timingOff_ll
 	private ImageView childLockO_iv;//童锁开关按钮ImageView
-//	private TextView childLockO_tv;//童锁开关按钮TextView
 	private LinearLayout qualityLightO_ll;//空气灯开关按钮timingOff_ll
 	private ImageView qualityLightO_iv;//空气灯开关按钮ImageView
-//	private TextView qualityLightO_tv;//空气灯开关按钮TextView
 	private LinearLayout timingOff_ll;//定时关机按钮timingOff_ll
 	private ImageView timingOff_iv;//定时关机按钮ImageView
 	private TextView timingOff_tv;//定时关机按钮TextView
@@ -111,6 +108,8 @@ public class AirPurActivity extends BaseActivity implements OnClickListener,OnTo
 	private boolean isAlarm;//每一个alarm本页中只允许显示一次
 	/** The timing off. */
 	private int timingOn, timingOff;
+	/** power off dialog; */
+	Dialog powerDialog=null;
 	
 	private enum handler_key {
 
@@ -153,6 +152,46 @@ public class AirPurActivity extends BaseActivity implements OnClickListener,OnTo
 	public void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
+	}
+
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+	}
+	
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		super.onBackPressed();
+		//注销设备
+		if (mXpgWifiDevice != null && mXpgWifiDevice.isConnected()) {
+			mCenter.cDisconnect(mXpgWifiDevice);
+			mXpgWifiDevice = null;
+		}
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see android.app.Activity#onActivityResult(int, int,
+	 * android.content.Intent)
+	 */
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		isClick = false;//左侧菜单可打开
+	}
+
+	@Override
+	protected void didDisconnected(XPGWifiDevice device) {
+		super.didDisconnected(device);
+	}
+	
+	@Override
+	protected void didReceiveData(XPGWifiDevice device,
+			ConcurrentHashMap<String, Object> dataMap, int result) {
+		Log.e(TAG, "didReceiveData");
+		this.deviceDataMap = dataMap;
+		handler.sendEmptyMessage(handler_key.RECEIVED.ordinal());
 	}
 	
 	//初始化所有控件
@@ -287,33 +326,6 @@ public class AirPurActivity extends BaseActivity implements OnClickListener,OnTo
 	}
 
 	@Override
-	public void onDestroy() {
-		super.onDestroy();
-	}
-	
-	@Override
-	public void onBackPressed() {
-		// TODO Auto-generated method stub
-		super.onBackPressed();
-		//注销设备
-		if (mXpgWifiDevice != null && mXpgWifiDevice.isConnected()) {
-			mCenter.cDisconnect(mXpgWifiDevice);
-			mXpgWifiDevice = null;
-		}
-	}
-	
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see android.app.Activity#onActivityResult(int, int,
-	 * android.content.Intent)
-	 */
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		isClick = false;//左侧菜单可打开
-	}
-
-	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
@@ -357,6 +369,14 @@ public class AirPurActivity extends BaseActivity implements OnClickListener,OnTo
 						public void timingChosen(int time) {
 							// 设置定时开机时间
 							mCenter.cCountDownOff(mXpgWifiDevice, DateUtil.hourCastToMin(time));
+							timingOff = time;
+							if (time == 0) {
+								timingOff_tv.setText("定时关机");
+								timingOff_iv.setImageResource(R.drawable.icon_4);
+							} else {
+								timingOff_tv.setText(time + "小时");
+								timingOff_iv.setImageResource(R.drawable.icon_4_2);
+							}
 						}
 					}, " 定时关机", timingOff == 0 ? 24 : timingOff - 1).show();
 			break;
@@ -372,6 +392,12 @@ public class AirPurActivity extends BaseActivity implements OnClickListener,OnTo
 						public void timingChosen(int time) {
 							// 设置定时开机时间
 							mCenter.cCountDownOn(mXpgWifiDevice, DateUtil.hourCastToMin(time));
+							timingOn = time;
+							if (time != 0) {
+								timingOn_tv.setText(time + "小时");
+							} else {
+								timingOn_tv.setText("定时开机");
+							}
 						}
 					}, " 定时开机", timingOn == 0 ? 24 : timingOn - 1).show();
 			break;
@@ -384,8 +410,17 @@ public class AirPurActivity extends BaseActivity implements OnClickListener,OnTo
 			}
 			break;
 		case R.id.ivPower:
-			mCenter.cSwitchOn(mXpgWifiDevice, false);
-			setSwitch(false);
+			powerDialog=DialogManager.getPowerOffDialog(this, new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					mCenter.cSwitchOn(mXpgWifiDevice, false);
+					setSwitch(false);
+					powerDialog.dismiss();
+				}
+			});
+			powerDialog.show();
 			break;
 		case R.id.auto_iv:
 			mCenter.cSetSpeed(mXpgWifiDevice, 3);
@@ -511,14 +546,13 @@ public class AirPurActivity extends BaseActivity implements OnClickListener,OnTo
 	 * @param isOn
 	 */
 	public void setTimingOff(int time) {
+		timingOff = time;
 		if (time == 0) {
 			timingOff_tv.setText("定时关机");
 			timingOff_iv.setImageResource(R.drawable.icon_4);
-			timingOff = 0;
 		} else {
 			timingOff_tv.setText(time + "小时");
 			timingOff_iv.setImageResource(R.drawable.icon_4_2);
-			timingOff = time;
 		}
 	}
 
@@ -666,20 +700,74 @@ public class AirPurActivity extends BaseActivity implements OnClickListener,OnTo
 		return mBitmap;
 	}
 	
-	@Override
-	protected void didDisconnected(XPGWifiDevice device) {
-		super.didDisconnected(device);
+	/**
+	 * 顶部警报条数显示
+	 * @param isShow
+	 * @param count
+	 */
+	private void setTipsLayoutVisiblity(boolean isShow, int count) {
+		rlAlarmTips.setVisibility(isShow ? View.VISIBLE : View.GONE);
+		tvAlarmTipsCount.setText(count + "");
 	}
 	
-	@Override
-	protected void didReceiveData(XPGWifiDevice device,
-			ConcurrentHashMap<String, Object> dataMap, int result) {
-		Log.e(TAG, "didReceiveData");
-		this.deviceDataMap = dataMap;
-		handler.sendEmptyMessage(handler_key.RECEIVED.ordinal());
-	}
-	
+	/**
+	 * Input device status to maps.
+	 * 
+	 * @param map
+	 *            the map
+	 * @param json
+	 *            the json
+	 * @throws JSONException
+	 *             the JSON exception
+	 */
+	private void inputDataToMaps(ConcurrentHashMap<String, Object> map,
+			String json) throws JSONException {
+		Log.i("revjson", json);
+		JSONObject receive = new JSONObject(json);
+		Iterator actions = receive.keys();
+		while (actions.hasNext()) {
 
+			String action = actions.next().toString();
+			Log.i("revjson", "action=" + action);
+			// 忽略特殊部分
+			if (action.equals("cmd") || action.equals("qos")
+					|| action.equals("seq") || action.equals("version")) {
+				continue;
+			}
+			JSONObject params = receive.getJSONObject(action);
+			Log.i("revjson", "params=" + params);
+			Iterator it_params = params.keys();
+			while (it_params.hasNext()) {
+				String param = it_params.next().toString();
+				Object value = params.get(param);
+				map.put(param, value);
+				Log.i(TAG, "Key:" + param + ";value" + value);
+			}
+		}
+		handler.sendEmptyMessage(handler_key.UPDATE_UI.ordinal());
+	}
+	
+	/**
+	 * Input alarm to list.(Show number of Alarm)
+	 * 
+	 * @param json
+	 *            the json
+	 * @throws JSONException
+	 *             the JSON exception
+	 */
+	private void inputAlarmToList(String json) throws JSONException {
+		Log.i("revjson", json);
+		JSONObject receive = new JSONObject(json);
+		Iterator actions = receive.keys();
+		while (actions.hasNext()) {
+			Log.i("revjson", "action");
+			String action = actions.next().toString();
+			DeviceAlarm alarm = new DeviceAlarm(DateUtil.getDateCN(new Date()), action);
+			alarmList.add(alarm);
+		}
+		handler.sendEmptyMessage(handler_key.UPDATE_UI.ordinal());
+	}
+	
 	/**
 	 * The handler by device status change
 	 */
@@ -797,72 +885,4 @@ public class AirPurActivity extends BaseActivity implements OnClickListener,OnTo
 			}
 		}
 	};
-	
-	/**
-	 * 顶部警报条数显示
-	 * @param isShow
-	 * @param count
-	 */
-	private void setTipsLayoutVisiblity(boolean isShow, int count) {
-		rlAlarmTips.setVisibility(isShow ? View.VISIBLE : View.GONE);
-		tvAlarmTipsCount.setText(count + "");
-	}
-	
-	/**
-	 * Input device status to maps.
-	 * 
-	 * @param map
-	 *            the map
-	 * @param json
-	 *            the json
-	 * @throws JSONException
-	 *             the JSON exception
-	 */
-	private void inputDataToMaps(ConcurrentHashMap<String, Object> map,
-			String json) throws JSONException {
-		Log.i("revjson", json);
-		JSONObject receive = new JSONObject(json);
-		Iterator actions = receive.keys();
-		while (actions.hasNext()) {
-
-			String action = actions.next().toString();
-			Log.i("revjson", "action=" + action);
-			// 忽略特殊部分
-			if (action.equals("cmd") || action.equals("qos")
-					|| action.equals("seq") || action.equals("version")) {
-				continue;
-			}
-			JSONObject params = receive.getJSONObject(action);
-			Log.i("revjson", "params=" + params);
-			Iterator it_params = params.keys();
-			while (it_params.hasNext()) {
-				String param = it_params.next().toString();
-				Object value = params.get(param);
-				map.put(param, value);
-				Log.i(TAG, "Key:" + param + ";value" + value);
-			}
-		}
-		handler.sendEmptyMessage(handler_key.UPDATE_UI.ordinal());
-	}
-	
-	/**
-	 * Input alarm to list.(Show number of Alarm)
-	 * 
-	 * @param json
-	 *            the json
-	 * @throws JSONException
-	 *             the JSON exception
-	 */
-	private void inputAlarmToList(String json) throws JSONException {
-		Log.i("revjson", json);
-		JSONObject receive = new JSONObject(json);
-		Iterator actions = receive.keys();
-		while (actions.hasNext()) {
-			Log.i("revjson", "action");
-			String action = actions.next().toString();
-			DeviceAlarm alarm = new DeviceAlarm(DateUtil.getDateCN(new Date()), action);
-			alarmList.add(alarm);
-		}
-		handler.sendEmptyMessage(handler_key.UPDATE_UI.ordinal());
-	}
 }
