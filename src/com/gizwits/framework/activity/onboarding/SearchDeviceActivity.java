@@ -42,10 +42,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-<<<<<<< HEAD
 import android.widget.Toast;
-=======
->>>>>>> refs/remotes/origin/airpurifier
 
 
 import com.gizwits.aircondition.R;
