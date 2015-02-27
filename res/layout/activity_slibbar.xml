@@ -3,269 +3,267 @@
     android:id="@+id/behind_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_gray">
+    android:background="@color/white" >
 
     <LinearLayout
         android:id="@+id/slideout_placeholder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:paddingRight="60dp">
+        android:paddingRight="60dp" >
 
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none" >
 
-        <RelativeLayout
-            android:id="@+id/rlDevice"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical" >
 
-            <ImageView
-                android:id="@+id/icon1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:layout_margin="10dp"
-                android:src="@drawable/slib_deviceicon" />
+                <RelativeLayout
+                    android:id="@+id/rlDevice"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:gravity="center_vertical"
+                    android:background="@color/background_light_gray"
+                    android:orientation="horizontal" >
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_margin="10dp"
-                android:layout_toRightOf="@+id/icon1"
-                android:text="设备管理" />
+                    <ImageView
+                        android:id="@+id/icon1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_margin="10dp"
+                        android:src="@drawable/slib_deviceicon" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_gravity="right|center_vertical"
-                android:layout_margin="10dp"
-                android:src="@drawable/slib_arrow_down" />
-        </RelativeLayout>
+                    <TextView
+                        style="@style/MenuTextViewGray"
+                        android:layout_toRightOf="@+id/icon1"
+                        android:text="@string/device_manage" />
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="1dp"
-            android:background="@color/text_black" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="right|center_vertical"
+                        android:layout_margin="10dp"
+                        android:src="@drawable/slib_arrow_down" />
+                </RelativeLayout>
 
-        <ListView
-            android:id="@+id/lvDevice"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:cacheColorHint="#00000000" />
-        
-        <RelativeLayout
-            android:id="@+id/rlAccount"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/text_gray" />
 
-            <ImageView
-                android:id="@+id/icon2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:layout_margin="10dp"
-                android:src="@drawable/slib_account" />
+                <ListView
+                    android:id="@+id/lvDevice"
+                    android:layout_width="fill_parent"
+                    android:scrollbars="none"
+                    android:layout_height="wrap_content"
+                    android:cacheColorHint="#00000000" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_margin="10dp"
-                android:layout_toRightOf="@+id/icon2"
-                android:text="账号管理" />
+                <RelativeLayout
+                    android:id="@+id/rlAccount"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:background="@color/background_light_gray"
+                    android:orientation="horizontal" >
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_gravity="right|center_vertical"
-                android:layout_margin="10dp"
-                android:src="@drawable/arrow_right_gray" />
-        </RelativeLayout>
+                    <ImageView
+                        android:id="@+id/icon2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_margin="10dp"
+                        android:src="@drawable/slib_account" />
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="1dp"
-            android:background="@color/text_black" />
-        
-        <RelativeLayout
-            android:id="@+id/rlFunction"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+                    <TextView
+                        style="@style/MenuTextViewGray"
+                        android:layout_toRightOf="@+id/icon2"
+                        android:text="@string/account_manage" />
 
-            <ImageView
-                android:id="@+id/iconFunction"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:layout_margin="10dp"
-                android:src="@drawable/slib_account" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="right|center_vertical"
+                        android:layout_margin="10dp"
+                        android:src="@drawable/arrow_right_gray" />
+                </RelativeLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_margin="10dp"
-                android:layout_toRightOf="@+id/iconFunction"
-                android:text="高级功能" />
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/text_gray" />
+                
+                <RelativeLayout
+		            android:id="@+id/rlFunction"
+		            android:layout_width="fill_parent"
+		            android:layout_height="wrap_content"
+		            android:gravity="center_vertical"
+		            android:orientation="horizontal">
+		
+		            <ImageView
+		                android:id="@+id/iconFunction"
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:layout_alignParentLeft="true"
+		                android:layout_centerVertical="true"
+		                android:layout_margin="10dp"
+		                android:src="@drawable/menu_senior" />
+		
+		            <TextView
+                        style="@style/MenuTextViewGray"
+		                android:layout_toRightOf="@+id/iconFunction"
+		                android:text="高级功能" />
+		
+		            <ImageView
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:layout_alignParentRight="true"
+		                android:layout_centerVertical="true"
+		                android:layout_gravity="right|center_vertical"
+		                android:layout_margin="10dp"
+		                android:src="@drawable/arrow_right_gray" />
+		        </RelativeLayout>
+		
+		        <LinearLayout
+		            android:layout_width="fill_parent"
+		            android:layout_height="1dp"
+		            android:background="@color/text_gray" />
+		        
+		        <RelativeLayout
+		            android:id="@+id/rlCount"
+		            android:layout_width="fill_parent"
+		            android:layout_height="wrap_content"
+		            android:gravity="center_vertical"
+		            android:orientation="horizontal">
+		
+		            <ImageView
+		                android:id="@+id/iconCount"
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:layout_alignParentLeft="true"
+		                android:layout_centerVertical="true"
+		                android:layout_margin="10dp"
+		                android:src="@drawable/menu_monitor" />
+		
+		            <TextView
+                        style="@style/MenuTextViewGray"
+		                android:layout_toRightOf="@+id/iconCount"
+		                android:text="监测统计" />
+		
+		            <ImageView
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:layout_alignParentRight="true"
+		                android:layout_centerVertical="true"
+		                android:layout_gravity="right|center_vertical"
+		                android:layout_margin="10dp"
+		                android:src="@drawable/arrow_right_gray" />
+		        </RelativeLayout>
+		
+		        <LinearLayout
+		            android:layout_width="fill_parent"
+		            android:layout_height="1dp"
+		            android:background="@color/text_gray" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_gravity="right|center_vertical"
-                android:layout_margin="10dp"
-                android:src="@drawable/arrow_right_gray" />
-        </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/rlHelp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:background="@color/background_light_gray"
+                    android:orientation="horizontal" >
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="1dp"
-            android:background="@color/text_black" />
-        
-        <RelativeLayout
-            android:id="@+id/rlCount"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/icon3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_margin="10dp"
+                        android:src="@drawable/slib_help" />
 
-            <ImageView
-                android:id="@+id/iconCount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:layout_margin="10dp"
-                android:src="@drawable/slib_account" />
+                    <TextView
+                        style="@style/MenuTextViewGray"
+                        android:layout_toRightOf="@+id/icon3"
+                        android:text="@string/help" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_margin="10dp"
-                android:layout_toRightOf="@+id/iconCount"
-                android:text="监测统计" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="right|center_vertical"
+                        android:layout_margin="10dp"
+                        android:src="@drawable/arrow_right_gray" />
+                </RelativeLayout>
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_gravity="right|center_vertical"
-                android:layout_margin="10dp"
-                android:src="@drawable/arrow_right_gray" />
-        </RelativeLayout>
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/text_gray" />
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="1dp"
-            android:background="@color/text_black" />
+                <RelativeLayout
+                    android:id="@+id/rlAbout"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:background="@color/background_light_gray"
+                    android:orientation="horizontal" >
 
-        <RelativeLayout
-            android:id="@+id/rlHelp"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/icon4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_margin="10dp"
+                        android:src="@drawable/slib_about" />
 
-            <ImageView
-                android:id="@+id/icon3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:layout_margin="10dp"
-                android:src="@drawable/slib_help" />
+                    <TextView
+                        style="@style/MenuTextViewGray"
+                        android:layout_toRightOf="@+id/icon4"
+                        android:text="@string/about" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_margin="10dp"
-                android:layout_toRightOf="@+id/icon3"
-                android:text="帮助" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="right|center_vertical"
+                        android:layout_margin="10dp"
+                        android:src="@drawable/arrow_right_gray" />
+                </RelativeLayout>
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_gravity="right|center_vertical"
-                android:layout_margin="10dp"
-                android:src="@drawable/arrow_right_gray" />
-        </RelativeLayout>
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/text_gray" />
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="1dp"
-            android:background="@color/text_black" />
-
-        <RelativeLayout
-            android:id="@+id/rlAbout"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/icon4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:layout_margin="10dp"
-                android:src="@drawable/slib_about" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_margin="10dp"
-                android:layout_toRightOf="@+id/icon4"
-                android:text="关于" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_gravity="right|center_vertical"
-                android:layout_margin="10dp"
-                android:src="@drawable/arrow_right_gray" />
-        </RelativeLayout>
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="1dp"
-            android:background="@color/text_black" />
-
-        <Button
-            android:layout_marginTop="50dp"
-            android:id="@+id/btnDeviceList"
-            style="@style/ButtonBlue"
-            android:text="返回设备列表" />
+                <Button
+                    android:id="@+id/btnDeviceList"
+                    style="@style/ButtonBlue"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginBottom="50dp"
+                    android:text="@string/back_to_device_list" />
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
 
     <ImageView
         android:id="@+id/slidedout_cover"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="fitXY"
-         />
+        android:scaleType="fitXY" />
 
 </AbsoluteLayout>
