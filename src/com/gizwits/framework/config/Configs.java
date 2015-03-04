@@ -41,4 +41,6 @@ public class Configs {
 	/**  日志保存文件名. */
 	public static final String LOG_FILE_NAME = "BassApp.log";
 
+	public static final String LOCATIONAK="F1e62d8e200e8aebda7c57a1633ae453";
+
 }

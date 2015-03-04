@@ -30,6 +30,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gizwits.aircondition.R;
 import com.gizwits.airpurifier.activity.advanced.AdvancedActivity;
@@ -42,6 +43,8 @@ import com.gizwits.framework.entity.DeviceAlarm;
 import com.gizwits.framework.utils.DialogManager;
 import com.gizwits.framework.utils.DialogManager.OnTimingChosenListener;
 import com.gizwits.framework.utils.PxUtil;
+import com.gizwits.framework.webservice.GetPMService;
+import com.gizwits.framework.webservice.LocationService;
 import com.xpg.common.useful.DateUtil;
 import com.xtremeprog.xpgconnect.XPGWifiDevice;
 
@@ -135,6 +138,7 @@ public class AirPurActivity extends BaseActivity implements OnClickListener,OnTo
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_airpur_control);
 		initUI();
+		initCity();
 		statuMap = new ConcurrentHashMap<String, Object>();//设备状态数据
 		alarmList = new ArrayList<DeviceAlarm>();//警报状态数据
 	}
@@ -885,4 +889,69 @@ public class AirPurActivity extends BaseActivity implements OnClickListener,OnTo
 			}
 		}
 	};
+	
+	/**
+	 * 获取本机所在城市
+	 */
+	public void initCity(){
+		new LocationService() {
+			@Override
+			public void onSuccess(JSONObject data) {
+				// TODO Auto-generated method stub
+				try {
+					String[] city = data.getString("address").split("\\|");
+					Log.e("city-json", ""+data);
+					getPm(city[2]);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+
+			@Override
+			public void onFailed() {
+				// TODO Auto-generated method stub
+				Toast.makeText(AirPurActivity.this, "城市定位失败", Toast.LENGTH_SHORT)
+						.show();
+			}
+		}.startLocation();
+	}
+	
+	/**
+	 * 获取PM2.5值
+	 */
+	public void getPm(String city){
+		new GetPMService() {
+			
+			@Override
+			public void onSuccess(JSONObject data) {
+				// TODO Auto-generated method stub
+				try {
+					Log.e("pm", ""+data);
+					JSONObject pm=data.getJSONObject("result");
+					pm25_tv.setText(pm.getString("pm2_5"));
+					pm10_tv.setText(pm.getString("pm10"));
+					int aqi = pm.getInt("aqi");
+					if (0 < aqi && aqi <= 50) {
+						outdoorQuality_tv.setText("优");
+					} else if (50 < aqi && aqi <= 100) {
+						outdoorQuality_tv.setText("良");
+					} else if (101 < aqi && aqi <= 150) {
+						outdoorQuality_tv.setText("中");
+					} else {
+						outdoorQuality_tv.setText("差");
+					}
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			@Override
+			public void onFailed() {
+				// TODO Auto-generated method stub
+				Toast.makeText(AirPurActivity.this, "PM2.5获取失败", Toast.LENGTH_SHORT)
+						.show();
+			}
+		}.GetWeather(city);
+	}
 }
