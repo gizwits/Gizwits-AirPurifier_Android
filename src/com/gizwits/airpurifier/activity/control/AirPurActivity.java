@@ -928,9 +928,10 @@ public class AirPurActivity extends BaseActivity implements OnClickListener,OnTo
 				try {
 					Log.e("pm", ""+data);
 					JSONObject pm=data.getJSONObject("result");
-					pm25_tv.setText(pm.getString("pm2_5"));
-					pm10_tv.setText(pm.getString("pm10"));
+					pm25_tv.setText(pm.getString("pm2_5").split("\\.")[0]);
+					pm10_tv.setText(pm.getString("pm10").split("\\.")[0]);
 					int aqi = pm.getInt("aqi");
+					Log.e("aqi", ""+aqi);
 					if (0 < aqi && aqi <= 50) {
 						outdoorQuality_tv.setText("优");
 					} else if (50 < aqi && aqi <= 100) {
