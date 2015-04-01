@@ -27,9 +27,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.gizwits.aircondition.R;
+import com.gizwits.framework.config.Configs;
 import com.gizwits.framework.sdk.SettingManager;
 import com.gizwits.framework.utils.StringUtils;
 import com.xtremeprog.xpgconnect.XPGWifiDevice;
@@ -137,7 +139,7 @@ public class DeviceListAdapter extends BaseAdapter {
         wanDevices = new ArrayList<XPGWifiDevice>();
         offlineDevices = new ArrayList<XPGWifiDevice>();
         unBindDevices = new ArrayList<XPGWifiDevice>();
-        changeDatas(devices);
+        changeDatas(new ArrayList<XPGWifiDevice>());
     }
 
     /**
@@ -267,6 +269,11 @@ public class DeviceListAdapter extends BaseAdapter {
      * @author Lien
      */
     class DeviceViewHolder extends ViewHolder {
+    	
+    	/**
+         * The background.
+         */
+        LinearLayout background;
 
         /**
          * The icon.
@@ -295,6 +302,7 @@ public class DeviceListAdapter extends BaseAdapter {
          */
         public DeviceViewHolder(View view) {
             super(view);
+            background = (LinearLayout) view.findViewById(R.id.bg);
             icon = (ImageView) view.findViewById(R.id.icon);
             arrow = (ImageView) view.findViewById(R.id.arrow);
             name = (TextView) view.findViewById(R.id.name);
@@ -597,10 +605,14 @@ public class DeviceListAdapter extends BaseAdapter {
     private void onBindDeviceItem(DeviceViewHolder viewHolder,
                                   XPGWifiDevice device) {
     	String DeviceName="";
-    	if(StringUtils.isEmpty(device.getRemark()))
-    		DeviceName=device.getProductName();
-        else
+    	if(StringUtils.isEmpty(device.getRemark())){
+    		String macAddress=device.getMacAddress();
+			int size=macAddress.length();
+    		DeviceName=device.getProductName() + macAddress.substring(size-4, size);
+    	}else{
         	DeviceName=device.getRemark();
+    	}
+    	DeviceName=StringUtils.getStrFomat(DeviceName, Configs.DEVICE_NAME_KEEP_LENGTH, true);
     	viewHolder.name.setText(DeviceName);
     	
         if (device.isLAN()) {
@@ -626,6 +638,7 @@ public class DeviceListAdapter extends BaseAdapter {
                         R.color.text_gray));
                 viewHolder.statue.setText("离线");
                 viewHolder.arrow.setVisibility(View.GONE);
+                viewHolder.background.setBackgroundResource(R.color.transparent);
                 viewHolder.arrow.setImageResource(R.drawable.arrow_right_gray);
             } else {
                 viewHolder.icon.setImageResource(R.drawable.device_icon_blue);

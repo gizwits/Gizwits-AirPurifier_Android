@@ -4,53 +4,92 @@ import com.gizwits.framework.utils.DensityUtil;
 import com.nineoldandroids.view.ViewHelper;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 
+/**
+ * The Class SlidingMenu.
+ * 
+ * 侧拉菜单
+ * 
+ * @author Sunny
+ */
 public class SlidingMenu extends HorizontalScrollView {
 	/**
 	 * 屏幕宽度
 	 */
 	private int mScreenWidth;
+
 	/**
 	 * dp
 	 */
 	private int mMenuRightPadding;
 
+	/**
+	 * dip
+	 */
 	private final int num = 60;
 
 	/**
 	 * 菜单的宽度
 	 */
 	private int mMenuWidth;
+
+	/**
+	 * 菜单的半宽度
+	 */
 	private int mHalfMenuWidth;
 
+	/**
+	 * 菜单打开标志位
+	 */
 	private boolean isOpen;
 
+	/**
+	 * 初始化标志位
+	 */
 	private boolean once;
 
+	/**
+	 * 侧拉菜单控件
+	 */
 	private ViewGroup mMenu;
 
+	/**
+	 * 控件时间监听器
+	 */
+	private SlidingMenuListener mListener;
+
+	/**
+	 * 构造函数
+	 */
+	public SlidingMenu(Context context) {
+		this(context, null, 0);
+	}
+
+	/**
+	 * 构造函数
+	 */
 	public SlidingMenu(Context context, AttributeSet attrs) {
 		this(context, attrs, 0);
 
 	}
 
+	/**
+	 * 构造函数
+	 */
 	public SlidingMenu(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 		mScreenWidth = getScreenWidth(context);
 
-		mMenuRightPadding = DensityUtil.dip2px(context, num);// 默认为10DP
-	}
-
-	public SlidingMenu(Context context) {
-		this(context, null, 0);
+		mMenuRightPadding = DensityUtil.dip2px(context, num);
 	}
 
 	@Override
@@ -70,6 +109,7 @@ public class SlidingMenu extends HorizontalScrollView {
 				mContent.getLayoutParams().width = mScreenWidth;
 			}
 		}
+		updateState();
 		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
 	}
@@ -84,19 +124,41 @@ public class SlidingMenu extends HorizontalScrollView {
 		}
 	}
 
+	/**
+	 * 更新当前状态
+	 */
+	private void updateState() {
+		if (isOpen) {
+			this.scrollTo(0, 0);
+		} else {
+			this.scrollTo(mMenuWidth, 0);
+		}
+	}
+
+	@Override
+	public boolean onInterceptTouchEvent(MotionEvent ev) {
+		if (isOpen && ev.getX() > mMenuWidth) {
+			toggle();
+		}
+		return super.onInterceptTouchEvent(ev);
+	}
+
 	@Override
 	public boolean onTouchEvent(MotionEvent ev) {
+		if (!isOpen)
+			return true;
+
 		int action = ev.getAction();
 		switch (action) {
 		// Up时，进行判断，如果显示区域大于菜单宽度一半则完全显示，否则隐藏
 		case MotionEvent.ACTION_UP:
 			int scrollX = getScrollX();
 			if (scrollX > mHalfMenuWidth) {
-				this.smoothScrollTo(mMenuWidth, 0);
-				isOpen = false;
+				this.isOpen = true;
+				closeMenu();
 			} else {
-				this.smoothScrollTo(0, 0);
-				isOpen = true;
+				this.isOpen = false;
+				openMenu();
 			}
 			return true;
 		}
@@ -109,18 +171,26 @@ public class SlidingMenu extends HorizontalScrollView {
 	public void openMenu() {
 		if (isOpen)
 			return;
+
 		this.smoothScrollTo(0, 0);
-		isOpen = true;
+		this.isOpen = true;
+
+		if (mListener != null)
+			mListener.OpenFinish();
 	}
 
 	/**
 	 * 关闭菜单
 	 */
 	public void closeMenu() {
-		if (isOpen) {
-			this.smoothScrollTo(mMenuWidth, 0);
-			isOpen = false;
-		}
+		if (!isOpen)
+			return;
+
+		this.smoothScrollTo(mMenuWidth, 0);
+		this.isOpen = false;
+
+		if (mListener != null)
+			mListener.CloseFinish();
 	}
 
 	/**
@@ -143,7 +213,7 @@ public class SlidingMenu extends HorizontalScrollView {
 	}
 
 	public boolean isOpen() {
-		return isOpen;
+		return this.isOpen;
 	}
 
 	/**
@@ -158,6 +228,37 @@ public class SlidingMenu extends HorizontalScrollView {
 		DisplayMetrics outMetrics = new DisplayMetrics();
 		wm.getDefaultDisplay().getMetrics(outMetrics);
 		return outMetrics.widthPixels;
+	}
+
+	@Override
+	protected Parcelable onSaveInstanceState() {
+		Parcelable p = super.onSaveInstanceState();
+		Bundle bundle = new Bundle();
+		bundle.putBoolean("isOpen", isOpen);
+		bundle.putParcelable("android_state", p);
+		return bundle;
+	}
+
+	@Override
+	protected void onRestoreInstanceState(Parcelable state) {
+		Bundle bundle = (Bundle) state;
+		isOpen=bundle.getBoolean("isOpen");
+		updateState();
+		super.onRestoreInstanceState(bundle.getParcelable("android_state"));
+	}
+
+	public void setSlidingMenuListener(SlidingMenuListener mListener) {
+		this.mListener = mListener;
+	}
+
+	/**
+	 * the view action listener.
+	 */
+	public interface SlidingMenuListener {
+
+		public void OpenFinish();
+
+		public void CloseFinish();
 	}
 
 }

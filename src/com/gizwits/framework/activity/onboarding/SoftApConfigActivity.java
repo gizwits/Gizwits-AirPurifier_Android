@@ -116,6 +116,11 @@ public class SoftApConfigActivity extends BaseActivity implements OnClickListene
     
     /** The UI_STATE now. */
     private UI_STATE UiStateNow;
+    
+    /**
+     * The iv step.
+     */
+    private ImageView ivStep;
 
 
     /**
@@ -219,6 +224,7 @@ public class SoftApConfigActivity extends BaseActivity implements OnClickListene
         btnOK = (Button) findViewById(R.id.btnOK);
         btnRetry = (Button) findViewById(R.id.btnRetry);
         tvpsw = (TextView) findViewById(R.id.tvpsw);
+        ivStep=(ImageView) findViewById(R.id.ivStep);
         tvSsid = (TextView) findViewById(R.id.tvSsid);
         tvTick = (TextView) findViewById(R.id.tvTick);
         tbPswFlag = (ToggleButton) findViewById(R.id.tbPswFlag);
@@ -305,6 +311,7 @@ public class SoftApConfigActivity extends BaseActivity implements OnClickListene
             llConfigSuccess.setVisibility(View.GONE);
             llConfigFailed.setVisibility(View.GONE);
             ivBack.setVisibility(View.VISIBLE);
+            ivStep.setImageResource(R.drawable.step_devicelist);
     		break;
     	case PswInput:
     		llConnectAp.setVisibility(View.GONE);
@@ -313,6 +320,7 @@ public class SoftApConfigActivity extends BaseActivity implements OnClickListene
             llConfigSuccess.setVisibility(View.GONE);
             llConfigFailed.setVisibility(View.GONE);
             ivBack.setVisibility(View.VISIBLE);
+            ivStep.setImageResource(R.drawable.step_inputpsw_2);
     		break;
     	case Setting:
     		llConnectAp.setVisibility(View.GONE);
@@ -321,6 +329,7 @@ public class SoftApConfigActivity extends BaseActivity implements OnClickListene
             llConfigSuccess.setVisibility(View.GONE);
             llConfigFailed.setVisibility(View.GONE);
             ivBack.setVisibility(View.GONE);
+            ivStep.setImageResource(R.drawable.step_inputpsw_2);
     		break;
     	case ResultFailed:
     		llConnectAp.setVisibility(View.GONE);
@@ -329,6 +338,7 @@ public class SoftApConfigActivity extends BaseActivity implements OnClickListene
             llConfigSuccess.setVisibility(View.GONE);
             llConfigFailed.setVisibility(View.VISIBLE);
             ivBack.setVisibility(View.VISIBLE);
+            ivStep.setImageResource(R.drawable.step_inputpsw_2);
     		break;
     	case ResultSuccess:
     		llConnectAp.setVisibility(View.GONE);
@@ -337,6 +347,7 @@ public class SoftApConfigActivity extends BaseActivity implements OnClickListene
             llConfigSuccess.setVisibility(View.VISIBLE);
             llConfigFailed.setVisibility(View.GONE);
             ivBack.setVisibility(View.VISIBLE);
+            ivStep.setImageResource(R.drawable.step_inputpsw_2);
     		break;
     	}
     }

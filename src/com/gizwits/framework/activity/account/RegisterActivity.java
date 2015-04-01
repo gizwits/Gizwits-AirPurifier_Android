@@ -21,11 +21,12 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.InputFilter;
 import android.text.InputType;
-import android.text.method.DigitsKeyListener;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -42,7 +43,7 @@ import android.widget.ToggleButton;
 import com.gizwits.aircondition.R;
 import com.gizwits.framework.activity.BaseActivity;
 import com.gizwits.framework.activity.onboarding.SearchDeviceActivity;
-import com.xpg.common.system.IntentUtils;
+import com.gizwits.framework.widget.MyInputFilter;
 import com.xpg.common.useful.StringUtils;
 import com.xpg.ui.utils.ToastUtils;
 
@@ -217,8 +218,14 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 			case REG_SUCCESS:
 				ToastUtils.showShort(RegisterActivity.this, (String) msg.obj);
 				dialog.cancel();
-				IntentUtils.getInstance().startActivity(RegisterActivity.this,
+				Bundle mBundle=new Bundle();
+				mBundle.putBoolean("isRegister", true);
+				Intent mIntent = new Intent();
+				mIntent.putExtras(mBundle);
+				mIntent.setClass(RegisterActivity.this,
 						SearchDeviceActivity.class);
+				startActivity(mIntent);
+				finish();
 				break;
 
 			case TOAST:
@@ -264,6 +271,9 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 		toogleUI(ui_statue.DEFAULT);
 		dialog = new ProgressDialog(this);
 		dialog.setMessage("处理中，请稍候...");
+		
+		MyInputFilter filter= new MyInputFilter();
+		etInputPsw.setFilters(new InputFilter[] { filter });
 	}
 
 	/**
@@ -283,15 +293,9 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 				if (isChecked) {
 					etInputPsw.setInputType(InputType.TYPE_CLASS_TEXT
 							| InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-					etInputPsw.setKeyListener(DigitsKeyListener
-							.getInstance(getResources().getString(
-									R.string.register_name_digits)));
 				} else {
 					etInputPsw.setInputType(InputType.TYPE_CLASS_TEXT
 							| InputType.TYPE_TEXT_VARIATION_PASSWORD);
-					etInputPsw.setKeyListener(DigitsKeyListener
-							.getInstance(getResources().getString(
-									R.string.register_name_digits)));
 				}
 
 			}
@@ -476,6 +480,8 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 			msg.what = handler_key.REG_SUCCESS.ordinal();
 			msg.obj = "注册成功";
 			handler.sendMessage(msg);
+			setmanager.setUserName(etName.getText().toString().trim());
+			setmanager.setPassword(etInputPsw.getText().toString().trim());
 			setmanager.setUid(uid);
 			setmanager.setToken(token);
 

@@ -1,8 +1,8 @@
 /**
  * Project Name:XPGSdkV4AppBase
- * File Name:Configs.java
- * Package Name:com.gizwits.framework.config
- * Date:2015-1-27 14:47:04
+ * File Name:MyInputFilter.java
+ * Package Name:com.gizwits.framework.widget
+ * Date:2015-3-31 17:27:10
  * Copyright (c) 2014~2015 Xtreme Programming Group, Inc.
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), 
  * to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, 
@@ -15,35 +15,33 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.gizwits.framework.config;
+package com.gizwits.framework.widget;
 
-import com.xtremeprog.xpgconnect.XPGWifiSDK.XPGWifiLogLevel;
+import android.text.LoginFilter.UsernameFilterGMail;
 
-// TODO: Auto-generated Javadoc
 /**
- * app配置参数.
+ * ClassName: Class MyInputFilter. <br/>
+ * 输入过滤，该类主要用于过滤用户密码的输入。<br/>
+ * date: 2015-3-31 17:27:10 <br/>
  * 
- * @author Lien
+ * @author SunnyDing
  */
-public class Configs {
-	
-	/**  设备名字符显示长度. */
-	public static final int DEVICE_NAME_KEEP_LENGTH = 8;
-	
-	/**  设定是否为debug版本. */
-	public static final boolean DEBUG = true;
+public class MyInputFilter extends UsernameFilterGMail {
 
-	// 设定AppID，参数为机智云官网中查看产品信息得到的AppID
-	public static final String APPID = "31ee082710384a71bec246e1c9695920";
-	// 指定该app对应设备的product_key，如果设定了过滤，会过滤出该peoduct_key对应的设备
-	public static final String PRODUCT_KEY = "b3a206e380bc4a3c8c157ff4b5491633";
-	// 设定日志打印级别
+	public MyInputFilter() {
+		super();
+	}
 
-	public static final XPGWifiLogLevel LOG_LEVEL = XPGWifiLogLevel.XPGWifiLogLevelAll;
-	
-	/**  日志保存文件名. */
-	public static final String LOG_FILE_NAME = "BassApp.log";
-
-	public static final String LOCATIONAK="F1e62d8e200e8aebda7c57a1633ae453";
+	@Override
+	public boolean isAllowed(char c) {
+		// Allow [a-zA-Z0-9@.]
+		if ('0' <= c && c <= '9')
+			return true;
+		if ('a' <= c && c <= 'z')
+			return true;
+		if ('A' <= c && c <= 'Z')
+			return true;
+		return false;
+	}
 
 }
