@@ -10,9 +10,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:paddingRight="60dp" >
+         >
 
         <ScrollView
+            android:id="@+id/slMenu"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="none" >
@@ -28,6 +29,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="50dp"
                     android:gravity="center_vertical"
+                    android:onClick="onClickSlipBar"
                     android:background="@color/background_light_gray"
                     android:orientation="horizontal" >
 
@@ -72,6 +74,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
+                    android:onClick="onClickSlipBar"
                     android:background="@color/background_light_gray"
                     android:orientation="horizontal" >
 
@@ -109,6 +112,7 @@
 		            android:layout_width="fill_parent"
 		            android:layout_height="wrap_content"
 		            android:gravity="center_vertical"
+		            android:onClick="onClickSlipBar"
 		            android:orientation="horizontal">
 		
 		            <ImageView
@@ -145,6 +149,7 @@
 		            android:layout_width="fill_parent"
 		            android:layout_height="wrap_content"
 		            android:gravity="center_vertical"
+		            android:onClick="onClickSlipBar"
 		            android:orientation="horizontal">
 		
 		            <ImageView
@@ -181,6 +186,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
+                    android:onClick="onClickSlipBar"
                     android:background="@color/background_light_gray"
                     android:orientation="horizontal" >
 
@@ -218,6 +224,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
+                    android:onClick="onClickSlipBar"
                     android:background="@color/background_light_gray"
                     android:orientation="horizontal" >
 
@@ -253,17 +260,12 @@
                 <Button
                     android:id="@+id/btnDeviceList"
                     style="@style/ButtonBlue"
+                    android:onClick="onClickSlipBar"
                     android:layout_marginTop="50dp"
                     android:layout_marginBottom="50dp"
                     android:text="@string/back_to_device_list" />
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
-
-    <ImageView
-        android:id="@+id/slidedout_cover"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="fitXY" />
 
 </AbsoluteLayout>

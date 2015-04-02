@@ -1,564 +1,590 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/main_layout"
+<com.gizwits.framework.widget.SlidingMenu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/liang_bg"
-    android:gravity="bottom"
-    android:orientation="vertical" >
-
-    <RelativeLayout
-            android:id="@+id/rlHeader"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_alignParentTop="true"
-            android:background="@drawable/home_top_bg" >
-
-            <ImageView
-                android:id="@+id/ivMenu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:src="@drawable/icon_menu" />
-
-            <TextView
-                android:id="@+id/tvTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="空气净化器"
-                android:textColor="@android:color/white"
-                android:textSize="22sp" />
-
-            <ImageView
-                android:id="@+id/ivPower"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="10dp"
-                android:src="@drawable/icon_power" />
-
-            <RelativeLayout
-                android:id="@+id/rlAlarmTips"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_centerInParent="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="5dp"
-                android:layout_toRightOf="@+id/tvTitle"
-                android:gravity="center"
-                android:visibility="gone" >
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/fault_tips" />
-
-                <TextView
-                    android:id="@+id/tvAlarmTipsCount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:textColor="#006cff"
-                    android:textSize="18sp" />
-            </RelativeLayout>
-    </RelativeLayout>
-
-    <HorizontalScrollView
-        android:id="@+id/wether_scrollview"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/rlHeader"
-        android:clickable="false"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        android:scrollbars="none" >
-
-        <ImageView
-            android:id="@+id/wether_bg"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
-    </HorizontalScrollView>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/rlHeader"
-        android:background="@null" />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/rlHeader"
-        android:layout_marginBottom="-20dp"
-        android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/tips_tv"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_alignParentTop="true"
-            android:gravity="center"
-            android:text="室内空气质量"
-            android:textColor="@color/white"
-            android:textSize="25sp" />
-
-        <TextView
-            android:id="@+id/homeQualityResult_tv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tips_tv"
-            android:gravity="center"
-            android:text="良"
-            android:textColor="@color/white"
-            android:textSize="130sp" />
-
-        <RelativeLayout
-            android:id="@+id/homeQualityResult_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/homeQualityResult_tv"
-            android:layout_marginLeft="60dp"
-            android:layout_marginRight="60dp" >
-
-            <ImageView
-                android:id="@+id/homeQualityResult_iv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:scaleType="fitXY"
-                android:src="@drawable/instructions_bg" />
-
-            <ImageView
-                android:id="@+id/homeQualityTipArrow_iv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/homeQualityResult_iv"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="10dp"
-                android:src="@drawable/instructions_pointer" />
-        </RelativeLayout>
-
-        <LinearLayout
-            android:id="@+id/status_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/homeQualityResult_layout"
-            android:layout_marginLeft="60dp"
-            android:layout_marginRight="60dp"
-            android:layout_marginTop="10dp"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:orientation="vertical" >
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal" >
-
-                <ImageView
-                    android:id="@+id/plasama_iv"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_weight="1"
-                    android:src="@drawable/anion_not_select" />
-
-                <ImageView
-                    android:id="@+id/childLock_iv"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_weight="1"
-                    android:src="@drawable/lock_not_select" />
-
-                <ImageView
-                    android:id="@+id/qualityLight_iv"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_weight="1"
-                    android:src="@drawable/quality_not_select" />
-            </LinearLayout>
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="5dp"
-                android:background="@color/white"
-                android:gravity="center"
-                android:orientation="horizontal" >
-            </ImageView>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:gravity="center"
-                android:orientation="horizontal" >
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical" >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="室外空气质量"
-                        android:textColor="@color/white" />
-
-                    <TextView
-                        android:id="@+id/outdoorQuality_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="差"
-                        android:textColor="@color/white" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical" >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="PM 2.5"
-                        android:textColor="@color/white" />
-
-                    <TextView
-                        android:id="@+id/pm25_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="90"
-                        android:textColor="@color/white" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical" >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="PM 10"
-                        android:textColor="@color/white" />
-
-                    <TextView
-                        android:id="@+id/pm10_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="10"
-                        android:textColor="@color/white" />
-                </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/status_layout">
-
-            <LinearLayout
-                android:id="@+id/speed_layout"
-                android:layout_width="match_parent"
-                android:layout_height="136dp"
-                android:gravity="center"
-                android:layout_alignParentTop="true"
-                android:orientation="horizontal" >
-
-                <View
-                    android:layout_width="wrap_content"
-                    android:layout_height="1dp"
-                    android:layout_weight="1" />
-
-                <ImageView
-                    android:id="@+id/silent_iv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/icon_sleep_not_select"
-                    android:scaleType="centerInside" />
-
-                <View
-                    android:layout_width="wrap_content"
-                    android:layout_height="1dp"
-                    android:layout_weight="1" />
-
-                <ImageView
-                    android:id="@+id/standar_iv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/icon_standard_not_select"
-                    android:scaleType="centerInside" />
-
-                <View
-                    android:layout_width="wrap_content"
-                    android:layout_height="1dp"
-                    android:layout_weight="1" />
-
-                <ImageView
-                    android:id="@+id/strong_iv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/icon_strong_not_select"
-                    android:scaleType="centerInside" />
-
-                <View
-                    android:layout_width="wrap_content"
-                    android:layout_height="1dp"
-                    android:layout_weight="1" />
-
-                <ImageView
-                    android:id="@+id/auto_iv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/icon_intelligence_not_select"
-                    android:scaleType="centerInside" />
-
-                <View
-                    android:layout_width="wrap_content"
-                    android:layout_height="1dp"
-                    android:layout_weight="1" />
-            </LinearLayout>
-        </RelativeLayout>
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/back_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        android:visibility="gone" >
-
-        <Button
-            android:id="@+id/back_btn"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:alpha="0.6"
-            android:background="@color/black" >
-        </Button>
-    </RelativeLayout>
+    android:scrollbars="none" >
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:gravity="center"
-        android:orientation="vertical" >
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:orientation="horizontal" >
+
+        <include layout="@layout/activity_slibbar" />
 
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="-7dp"
-            android:gravity="center"
-            android:orientation="vertical" >
-
-            <ImageView
-                android:id="@+id/bottom_push"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
-                android:src="@drawable/bottom_1" />
-            
-            <ImageView
-                android:id="@+id/push_iv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="36dp"
-                android:src="@drawable/arrow_1" />
-        </RelativeLayout>
-
-        <LinearLayout
-            android:id="@+id/functions_layout"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_marginBottom="-81dp"
-            android:background="@color/white"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:visibility="visible" >
-			<LinearLayout 
-			    android:id="@+id/plasmaO_ll"
-	            android:layout_width="80dp"
-	            android:layout_height="wrap_content"
-	            android:gravity="center"
-	            android:orientation="vertical">
-	            <ImageView
-			    	android:id="@+id/plasmaO_iv"
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:src="@drawable/icon_3" />
-	            <TextView
-			    	android:id="@+id/plasmaO_tv"
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:text="等离子" />
-			</LinearLayout>
-			<LinearLayout 
-			    android:id="@+id/childLockO_ll"
-	            android:layout_width="80dp"
-	            android:layout_height="wrap_content"
-	            android:gravity="center"
-	            android:orientation="vertical">
-	            <ImageView
-			    	android:id="@+id/childLockO_iv"
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:src="@drawable/icon_2" />
-	            <TextView
-			    	android:id="@+id/childLockO_tv"
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:text=" 童锁 " />
-			</LinearLayout>
-			<LinearLayout 
-			    android:id="@+id/qualityLightO_ll"
-	            android:layout_width="80dp"
-	            android:layout_height="wrap_content"
-	            android:gravity="center"
-	            android:orientation="vertical">
-	            <ImageView
-			   		android:id="@+id/qualityLightO_iv"
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:src="@drawable/icon_1" />
-	            <TextView
-			    	android:id="@+id/qualityLightO_tv"
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:text="空气质量" />
-			</LinearLayout>
-			<LinearLayout 
-			    android:id="@+id/timingOff_ll"
-	            android:layout_width="80dp"
-	            android:layout_height="wrap_content"
-	            android:gravity="center"
-	            android:orientation="vertical">
-	            <ImageView
-			    	android:id="@+id/timingOff_iv"
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:src="@drawable/icon_4" />
-	            <TextView
-			    	android:id="@+id/timingOff_tv"
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:text="定时关机" />
-			</LinearLayout>
-
-        </LinearLayout>
-    </LinearLayout>
-
-    <RelativeLayout
-        android:id="@+id/turnOff_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        android:visibility="gone" >
-
-        <Button
+            android:id="@+id/main_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:alpha="0.6"
-            android:background="@color/black" >
-        </Button>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:paddingTop="10dp"
+            android:background="@drawable/liang_bg"
+            android:gravity="bottom"
             android:orientation="vertical" >
 
-            <ImageView
-                android:id="@+id/turnOn_iv"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:src="@drawable/shutdown" />
+            <RelativeLayout
+                android:id="@+id/rlHeader"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/home_top_bg" >
+
+                <ImageView
+                    android:id="@+id/ivMenu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/icon_menu" />
+
+                <TextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="空气净化器"
+                    android:textColor="@android:color/white"
+                    android:textSize="22sp" />
+
+                <ImageView
+                    android:id="@+id/ivPower"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/icon_power" />
+
+                <RelativeLayout
+                    android:id="@+id/rlAlarmTips"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@+id/tvTitle"
+                    android:gravity="center"
+                    android:visibility="gone" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/fault_tips" />
+
+                    <TextView
+                        android:id="@+id/tvAlarmTipsCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:textColor="#006cff"
+                        android:textSize="18sp" />
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <HorizontalScrollView
+                android:id="@+id/wether_scrollview"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/rlHeader"
+                android:clickable="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:scrollbars="none" >
+
+                <ImageView
+                    android:id="@+id/wether_bg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+            </HorizontalScrollView>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/rlHeader"
+                android:background="@null" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/rlHeader"
+                android:layout_marginBottom="-20dp"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/tips_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_alignParentTop="true"
+                    android:gravity="center"
+                    android:text="室内空气质量"
+                    android:textColor="@color/white"
+                    android:textSize="25sp" />
+
+                <TextView
+                    android:id="@+id/homeQualityResult_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tips_tv"
+                    android:gravity="center"
+                    android:text="良"
+                    android:textColor="@color/white"
+                    android:textSize="130sp" />
+
+                <RelativeLayout
+                    android:id="@+id/homeQualityResult_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/homeQualityResult_tv"
+                    android:layout_marginLeft="60dp"
+                    android:layout_marginRight="60dp" >
+
+                    <ImageView
+                        android:id="@+id/homeQualityResult_iv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/instructions_bg" />
+
+                    <ImageView
+                        android:id="@+id/homeQualityTipArrow_iv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/homeQualityResult_iv"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="10dp"
+                        android:src="@drawable/instructions_pointer" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/status_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/homeQualityResult_layout"
+                    android:layout_marginLeft="60dp"
+                    android:layout_marginRight="60dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical" >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal" >
+
+                        <ImageView
+                            android:id="@+id/plasama_iv"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_weight="1"
+                            android:src="@drawable/anion_not_select" />
+
+                        <ImageView
+                            android:id="@+id/childLock_iv"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_weight="1"
+                            android:src="@drawable/lock_not_select" />
+
+                        <ImageView
+                            android:id="@+id/qualityLight_iv"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_weight="1"
+                            android:src="@drawable/quality_not_select" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@color/white"
+                        android:gravity="center"
+                        android:orientation="horizontal" >
+                    </ImageView>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:orientation="horizontal" >
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="室外空气质量"
+                                android:textColor="@color/white" />
+
+                            <TextView
+                                android:id="@+id/outdoorQuality_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="差"
+                                android:textColor="@color/white" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="PM 2.5"
+                                android:textColor="@color/white" />
+
+                            <TextView
+                                android:id="@+id/pm25_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="90"
+                                android:textColor="@color/white" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="PM 10"
+                                android:textColor="@color/white" />
+
+                            <TextView
+                                android:id="@+id/pm10_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="10"
+                                android:textColor="@color/white" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/status_layout" >
+
+                    <LinearLayout
+                        android:id="@+id/speed_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="136dp"
+                        android:layout_alignParentTop="true"
+                        android:gravity="center"
+                        android:orientation="horizontal" >
+
+                        <View
+                            android:layout_width="wrap_content"
+                            android:layout_height="1dp"
+                            android:layout_weight="1" />
+
+                        <ImageView
+                            android:id="@+id/silent_iv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/icon_sleep_not_select"
+                            android:scaleType="centerInside" />
+
+                        <View
+                            android:layout_width="wrap_content"
+                            android:layout_height="1dp"
+                            android:layout_weight="1" />
+
+                        <ImageView
+                            android:id="@+id/standar_iv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/icon_standard_not_select"
+                            android:scaleType="centerInside" />
+
+                        <View
+                            android:layout_width="wrap_content"
+                            android:layout_height="1dp"
+                            android:layout_weight="1" />
+
+                        <ImageView
+                            android:id="@+id/strong_iv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/icon_strong_not_select"
+                            android:scaleType="centerInside" />
+
+                        <View
+                            android:layout_width="wrap_content"
+                            android:layout_height="1dp"
+                            android:layout_weight="1" />
+
+                        <ImageView
+                            android:id="@+id/auto_iv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/icon_intelligence_not_select"
+                            android:scaleType="centerInside" />
+
+                        <View
+                            android:layout_width="wrap_content"
+                            android:layout_height="1dp"
+                            android:layout_weight="1" />
+                    </LinearLayout>
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/back_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:visibility="gone" >
+
+                <Button
+                    android:id="@+id/back_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:alpha="0.6"
+                    android:background="@color/black" >
+                </Button>
+            </RelativeLayout>
 
             <LinearLayout
-                android:id="@+id/timingOn_layout"
-                android:layout_width="78dp"
-                android:layout_height="78dp"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/alarm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
                 android:gravity="center"
                 android:orientation="vertical" >
 
-                <ImageView
-                    android:id="@+id/timingOn_iv"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/alarm_icon"
-                    android:tag="1" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="-7dp"
+                    android:gravity="center"
+                    android:orientation="vertical" >
 
-                <TextView
-                    android:id="@+id/timingOn_tv"
+                    <ImageView
+                        android:id="@+id/bottom_push"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="20dp"
+                        android:src="@drawable/bottom_1" />
+
+                    <ImageView
+                        android:id="@+id/push_iv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="36dp"
+                        android:src="@drawable/arrow_1" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/functions_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_marginBottom="-81dp"
+                    android:background="@color/white"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:visibility="visible" >
+
+                    <LinearLayout
+                        android:id="@+id/plasmaO_ll"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical" >
+
+                        <ImageView
+                            android:id="@+id/plasmaO_iv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/icon_3" />
+
+                        <TextView
+                            android:id="@+id/plasmaO_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="等离子" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/childLockO_ll"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical" >
+
+                        <ImageView
+                            android:id="@+id/childLockO_iv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/icon_2" />
+
+                        <TextView
+                            android:id="@+id/childLockO_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" 童锁 " />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/qualityLightO_ll"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical" >
+
+                        <ImageView
+                            android:id="@+id/qualityLightO_iv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/icon_1" />
+
+                        <TextView
+                            android:id="@+id/qualityLightO_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="空气质量" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/timingOff_ll"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical" >
+
+                        <ImageView
+                            android:id="@+id/timingOff_iv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/icon_4" />
+
+                        <TextView
+                            android:id="@+id/timingOff_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="定时关机" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/turnOff_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:visibility="gone" >
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:alpha="0.6"
+                    android:background="@color/black" >
+                </Button>
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
-                    android:gravity="center_horizontal"
-                    android:text="定时开机"
-                    android:textColor="@color/white" />
-            </LinearLayout>
-        </LinearLayout>
-    </RelativeLayout>
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingTop="10dp" >
 
-    <RelativeLayout
-        android:id="@+id/disconnected_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        android:visibility="gone" >
+                    <ImageView
+                        android:id="@+id/turnOn_iv"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        android:src="@drawable/shutdown" />
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:alpha="0.6"
-            android:background="@color/black" >
-        </Button>
+                    <LinearLayout
+                        android:id="@+id/timingOn_layout"
+                        android:layout_width="78dp"
+                        android:layout_height="78dp"
+                        android:layout_marginTop="15dp"
+                        android:background="@drawable/alarm"
+                        android:gravity="center"
+                        android:orientation="vertical" >
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:orientation="vertical" >
+                        <ImageView
+                            android:id="@+id/timingOn_iv"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/alarm_icon"
+                            android:tag="1" />
 
-            <TextView
-                android:id="@+id/disconnected_tips_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="连接已经断开，不能控制。"
-                android:textColor="@color/white" />
+                        <TextView
+                            android:id="@+id/timingOn_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:gravity="center_horizontal"
+                            android:text="定时开机"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
+                </LinearLayout>
+            </RelativeLayout>
 
-            <Button
-                android:id="@+id/reConn_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bt_bg"
-                android:text="重新连接"
-                android:textColor="@color/white" />
-        </LinearLayout>
-    </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/disconnected_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:visibility="gone" >
 
-</RelativeLayout>
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:alpha="0.6"
+                    android:background="@color/black" >
+                </Button>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/disconnected_tips_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="连接已经断开，不能控制。"
+                        android:textColor="@color/white" />
+
+                    <Button
+                        android:id="@+id/reConn_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bt_bg"
+                        android:text="重新连接"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+            </RelativeLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+</com.gizwits.framework.widget.SlidingMenu>

@@ -53,8 +53,6 @@
         <activity android:name="com.gizwits.framework.activity.onboarding.AirlinkActivity" />
         <activity android:name="com.gizwits.framework.activity.onboarding.AutoConfigActivity" />
         <activity android:name="com.gizwits.framework.activity.onboarding.BindingDeviceActivity" />
-        <activity android:name="com.gizwits.framework.activity.onboarding.ConfigFailedActivity" />
-        <activity android:name="com.gizwits.framework.activity.onboarding.GetPassAndBind" />
         <activity android:name="com.gizwits.framework.activity.onboarding.SearchDeviceActivity"
             android:launchMode="singleTask" />
         <activity android:name="com.gizwits.framework.activity.onboarding.SoftApConfigActivity" />
@@ -64,7 +62,6 @@
             android:name="zxing.CaptureActivity"
              android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden"  />
-        <activity android:name="com.gizwits.airpurifier.activity.slipbar.SlipBarActivity" />
         <activity android:screenOrientation="portrait" android:name="com.gizwits.airpurifier.activity.control.AirPurActivity" />
         <activity android:name="com.gizwits.airpurifier.activity.control.AlarmListActicity" />
         <activity android:name="com.gizwits.airpurifier.activity.control.CurveActivity" />
