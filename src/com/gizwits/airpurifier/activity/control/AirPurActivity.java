@@ -251,12 +251,14 @@ public class AirPurActivity extends BaseActivity implements OnClickListener,
 
 	@Override
 	public void onBackPressed() {
-		// TODO Auto-generated method stub
-		super.onBackPressed();
-		// 注销设备
-		if (mXpgWifiDevice != null && mXpgWifiDevice.isConnected()) {
-			mCenter.cDisconnect(mXpgWifiDevice);
-			mXpgWifiDevice = null;
+		if (mView.isOpen()) {
+			mView.toggle();
+		} else {
+			if (mXpgWifiDevice != null && mXpgWifiDevice.isConnected()) {
+				mCenter.cDisconnect(mXpgWifiDevice);
+				DisconnectOtherDevice();
+			}
+			finish();
 		}
 	}
 
