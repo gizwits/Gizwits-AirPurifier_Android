@@ -17,7 +17,7 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
-import com.gizwits.aircondition.R;
+import com.gizwits.airpurifier.R;
 
 /**
  * 灵敏度

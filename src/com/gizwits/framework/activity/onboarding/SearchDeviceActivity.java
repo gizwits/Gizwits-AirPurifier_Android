@@ -45,7 +45,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.gizwits.aircondition.R;
+import com.gizwits.airpurifier.R;
 import com.gizwits.framework.activity.BaseActivity;
 import com.gizwits.framework.activity.device.DeviceListActivity;
 import com.gizwits.framework.adapter.SearchListAdapter;

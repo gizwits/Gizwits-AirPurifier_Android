@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 
-import com.gizwits.aircondition.R;
+import com.gizwits.airpurifier.R;
 import com.gizwits.framework.activity.BaseActivity;
 import com.gizwits.framework.adapter.AlarmListAdapter;
 import com.gizwits.framework.entity.DeviceAlarm;

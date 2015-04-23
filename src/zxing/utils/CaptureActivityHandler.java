@@ -25,7 +25,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
-import com.gizwits.aircondition.R;
+import com.gizwits.airpurifier.R;
 import com.google.zxing.Result;
 
 /**

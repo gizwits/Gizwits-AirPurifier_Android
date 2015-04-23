@@ -36,7 +36,7 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
-import com.gizwits.aircondition.R;
+import com.gizwits.airpurifier.R;
 import com.gizwits.airpurifier.activity.control.AirPurActivity;
 import com.gizwits.framework.activity.BaseActivity;
 import com.gizwits.framework.activity.account.LoginActivity;

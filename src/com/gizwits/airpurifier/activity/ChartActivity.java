@@ -3,9 +3,7 @@ package com.gizwits.airpurifier.activity;
 import android.app.Activity;
 import android.os.Bundle;
 
-import com.gizwits.aircondition.R;
-import com.gizwits.framework.activity.device.DeviceListActivity;
-import com.xpg.common.system.IntentUtils;
+import com.gizwits.airpurifier.R;
 
 /**
  * 图表

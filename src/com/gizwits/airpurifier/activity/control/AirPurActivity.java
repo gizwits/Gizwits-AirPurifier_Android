@@ -35,7 +35,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.gizwits.aircondition.R;
+import com.gizwits.airpurifier.R;
 import com.gizwits.airpurifier.activity.advanced.AdvancedActivity;
 import com.gizwits.framework.Interface.OnDialogOkClickListenner;
 import com.gizwits.framework.activity.BaseActivity;

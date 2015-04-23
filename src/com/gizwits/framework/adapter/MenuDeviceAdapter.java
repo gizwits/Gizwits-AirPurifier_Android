@@ -11,7 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.gizwits.aircondition.R;
+import com.gizwits.airpurifier.R;
 import com.gizwits.framework.config.Configs;
 import com.gizwits.framework.utils.DensityUtil;
 import com.gizwits.framework.utils.StringUtils;

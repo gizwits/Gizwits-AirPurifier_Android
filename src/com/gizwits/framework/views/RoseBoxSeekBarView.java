@@ -20,7 +20,7 @@ import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.gizwits.aircondition.R;
+import com.gizwits.airpurifier.R;
 import com.gizwits.framework.utils.UIUtils;
 //import android.content.res.Resources;
 //import android.graphics.BitmapFactory;

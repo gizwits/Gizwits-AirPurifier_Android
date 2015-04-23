@@ -26,7 +26,7 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 
-import com.gizwits.aircondition.R;
+import com.gizwits.airpurifier.R;
 import com.gizwits.framework.activity.BaseActivity;
 
 // TODO: Auto-generated Javadoc
