@@ -48,6 +48,7 @@ import com.gizwits.framework.adapter.MenuDeviceAdapter;
 import com.gizwits.framework.config.JsonKeys;
 import com.gizwits.framework.entity.AdvanceType;
 import com.gizwits.framework.entity.DeviceAlarm;
+import com.gizwits.framework.utils.DensityUtil;
 import com.gizwits.framework.utils.DialogManager;
 import com.gizwits.framework.utils.DialogManager.OnTimingChosenListener;
 import com.gizwits.framework.utils.PxUtil;
@@ -197,7 +198,7 @@ public class AirPurActivity extends BaseActivity implements OnClickListener,
 		super.onResume();
 		if (mView.isOpen()) {
 			refreshMenu();
-		} else {
+		}else{
 			if (!mDisconnectDialog.isShowing())
 				refreshMainControl();
 		}
@@ -216,13 +217,18 @@ public class AirPurActivity extends BaseActivity implements OnClickListener,
 					.equalsIgnoreCase(mXpgWifiDevice.getDid()))
 				mAdapter.setChoosedPos(i);
 		}
-
-		// 当前绑定列表没有当前操作设备
-		if (mAdapter.getChoosedPos() == -1) {
+		
+		//当前绑定列表没有当前操作设备
+		if(mAdapter.getChoosedPos()==-1){
 			mAdapter.setChoosedPos(0);
-			mXpgWifiDevice = mAdapter.getItem(0);
-			alarmList.clear();
+			mXpgWifiDevice= mAdapter.getItem(0);
 		}
+			
+		mAdapter.notifyDataSetChanged();
+		
+		int px = DensityUtil.dip2px(this, mAdapter.getCount() * 50);
+		lvDevice.setLayoutParams(new android.widget.LinearLayout.LayoutParams(
+				android.widget.LinearLayout.LayoutParams.WRAP_CONTENT, px));
 	}
 
 	/**
