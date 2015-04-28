@@ -54,7 +54,7 @@
 	<string name="device_manage_text4">设备序列号：XXXXXXXXXXXXXXXX</string>
 	<string name="device_name">设备名称</string>
 	<string name="name">名称</string>
-	<string name="delete_aircondition">删除空调</string>
+	<string name="delete_airpurifier">删除空净</string>
 	<string name="forget_password">忘记密码</string>
 	<string name="forget_password_hint1">手机号/邮箱</string>
 	<string name="forget_password_get_verifycode">获取验证码</string>
