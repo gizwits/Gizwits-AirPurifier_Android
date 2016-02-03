@@ -14,8 +14,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:padding="10dp"
             android:layout_marginLeft="10dp"
+            android:padding="10dp"
             android:src="@drawable/return_icon" />
 
         <TextView
@@ -31,7 +31,7 @@
         android:id="@+id/etNum"
         style="@style/EditTextTheme"
         android:layout_marginTop="60dp"
-        android:hint="@string/forget_password_hint1" />
+        android:hint="@string/register_phone_num" />
 
     <Button
         android:id="@+id/btnGetCode"
