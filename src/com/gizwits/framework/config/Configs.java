@@ -45,5 +45,8 @@ public class Configs {
 	public static final String LOG_FILE_NAME = "BassApp.log";
 
 	public static final String LOCATIONAK="F1e62d8e200e8aebda7c57a1633ae453";
+	
+	/** 产品密钥 */
+	public static final String APP_SECRET = "859fd2b5fef64a049f4bc8f7695abe71";
 
 }
