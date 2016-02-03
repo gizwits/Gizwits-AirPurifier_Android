@@ -34,25 +34,24 @@ import com.xtremeprog.xpgconnect.XPGWifiDevice;
  * @author hao
  * 
  */
-public class AdvancedActivity extends BaseActivity implements
-		OnClickListener {
-	private String TAG="AdvancedActivity";
-	
+public class AdvancedActivity extends BaseActivity implements OnClickListener {
+	private String TAG = "AdvancedActivity";
+
 	private TextView title_tv;
 	private ImageView ivLeft;
 
-	//三个fragment
+	// 三个fragment
 	private FragmentManager fragmentManager;
 	private FragmentTransaction fragmentTransaction;
 	private SensitivityFragment sensitivityFragment;
 	private AlarmFragment alarmFragment;
 	private RoseboxFragment roseboxFragment;
-	
-	//顶部按钮
+
+	// 顶部按钮
 	private Button sensitivity_btn;
 	private Button rosebox_btn;
 	private Button alarm_btn;
-	
+
 	/** The device data map. */
 	private ConcurrentHashMap<String, Object> deviceDataMap;
 	/** The statu map. */
@@ -65,7 +64,7 @@ public class AdvancedActivity extends BaseActivity implements
 	private enum CurrentView {
 		sensitivity, rosebox, alarm
 	}
-	
+
 	private enum handler_key {
 
 		/** The update ui. */
@@ -89,8 +88,8 @@ public class AdvancedActivity extends BaseActivity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.advanced_layout);
 		mXpgWifiDevice.setListener(deviceListener);
-		statuMap = new ConcurrentHashMap<String, Object>();//设备状态数据
-		alarmList = new ArrayList<DeviceAlarm>();//警报状态数据
+		statuMap = new ConcurrentHashMap<String, Object>();// 设备状态数据
+		alarmList = new ArrayList<DeviceAlarm>();// 警报状态数据
 		initUI();
 		initFragment();
 
@@ -99,8 +98,7 @@ public class AdvancedActivity extends BaseActivity implements
 	@Override
 	public void onResume() {
 		super.onResume();
-		AdvanceType at = (AdvanceType) getIntent().getSerializableExtra(
-				"advanced_set");
+		AdvanceType at = (AdvanceType) getIntent().getSerializableExtra("advanced_set");
 		mCenter.cGetStatus(mXpgWifiDevice);
 		if (at != null) {
 			switch (at) {
@@ -132,10 +130,11 @@ public class AdvancedActivity extends BaseActivity implements
 
 	/**
 	 * change fragment
+	 * 
 	 * @param id
 	 */
 	private void changeView(CurrentView id) {
-		currentFragment=id;
+		currentFragment = id;
 		switch (id) {
 		case alarm:
 			fragmentTransaction = fragmentManager.beginTransaction();
@@ -150,8 +149,7 @@ public class AdvancedActivity extends BaseActivity implements
 			break;
 		case sensitivity:
 			fragmentTransaction = fragmentManager.beginTransaction();
-			fragmentTransaction.replace(R.id.content_layout,
-					sensitivityFragment);
+			fragmentTransaction.replace(R.id.content_layout, sensitivityFragment);
 			fragmentTransaction.commit();
 			break;
 		}
@@ -161,25 +159,21 @@ public class AdvancedActivity extends BaseActivity implements
 			alarm_btn.setTextColor(getResources().getColor(R.color.white));
 		} else {
 			alarm_btn.setBackgroundResource(R.drawable.adv_bg2);
-			alarm_btn.setTextColor(getResources().getColor(
-					R.color.gray));
+			alarm_btn.setTextColor(getResources().getColor(R.color.gray));
 		}
 		if (id == CurrentView.rosebox) {
 			rosebox_btn.setBackgroundResource(R.drawable.adv_bg1);
 			rosebox_btn.setTextColor(getResources().getColor(R.color.white));
 		} else {
 			rosebox_btn.setBackgroundResource(R.drawable.adv_bg2);
-			rosebox_btn.setTextColor(getResources().getColor(
-					R.color.gray));
+			rosebox_btn.setTextColor(getResources().getColor(R.color.gray));
 		}
 		if (id == CurrentView.sensitivity) {
 			sensitivity_btn.setBackgroundResource(R.drawable.adv_bg1);
-			sensitivity_btn
-					.setTextColor(getResources().getColor(R.color.white));
+			sensitivity_btn.setTextColor(getResources().getColor(R.color.white));
 		} else {
 			sensitivity_btn.setBackgroundResource(R.drawable.adv_bg2);
-			sensitivity_btn.setTextColor(getResources().getColor(
-					R.color.gray));
+			sensitivity_btn.setTextColor(getResources().getColor(R.color.gray));
 		}
 	}
 
@@ -214,15 +208,14 @@ public class AdvancedActivity extends BaseActivity implements
 			break;
 		}
 	}
-	
-	//device data request
+
+	// device data request
 	@Override
-	protected void didReceiveData(XPGWifiDevice device,
-			ConcurrentHashMap<String, Object> dataMap, int result) {
+	protected void didReceiveData(XPGWifiDevice device, ConcurrentHashMap<String, Object> dataMap, int result) {
 		this.deviceDataMap = dataMap;
 		handler.sendEmptyMessage(handler_key.RECEIVED.ordinal());
 	}
-	
+
 	/**
 	 * The handler by device status change
 	 */
@@ -232,11 +225,13 @@ public class AdvancedActivity extends BaseActivity implements
 			handler_key key = handler_key.values()[msg.what];
 			switch (key) {
 			case RECEIVED:
+				if (deviceDataMap==null) {
+					return;
+				}
 				try {
 					if (deviceDataMap.get("data") != null) {
 						Log.i("info", (String) deviceDataMap.get("data"));
-						inputDataToMaps(statuMap,
-								(String) deviceDataMap.get("data"));
+						inputDataToMaps(statuMap, (String) deviceDataMap.get("data"));
 
 					}
 					alarmList.clear();
@@ -259,7 +254,8 @@ public class AdvancedActivity extends BaseActivity implements
 				}
 			case UPDATE_UI:
 				if (statuMap != null && statuMap.size() > 0) {
-					sensitivityFragment.changeSensi(Integer.parseInt(statuMap.get(JsonKeys.Air_Sensitivity).toString()));
+					sensitivityFragment
+							.changeSensi(Integer.parseInt(statuMap.get(JsonKeys.Air_Sensitivity).toString()));
 					if (currentFragment == CurrentView.rosebox) {
 						roseboxFragment.updateStatus(Integer.parseInt(statuMap.get(JsonKeys.Filter_Life).toString()));
 					}
@@ -270,7 +266,7 @@ public class AdvancedActivity extends BaseActivity implements
 				alarmFragment.addInfos(alarmList);
 				break;
 			case DISCONNECTED:
-                mCenter.cDisconnect(mXpgWifiDevice);
+				mCenter.cDisconnect(mXpgWifiDevice);
 				break;
 			case GET_STATUE:
 				mCenter.cGetStatus(mXpgWifiDevice);
@@ -278,7 +274,7 @@ public class AdvancedActivity extends BaseActivity implements
 			}
 		}
 	};
-	
+
 	/**
 	 * Input device status to maps.
 	 * 
@@ -289,8 +285,7 @@ public class AdvancedActivity extends BaseActivity implements
 	 * @throws JSONException
 	 *             the JSON exception
 	 */
-	private void inputDataToMaps(ConcurrentHashMap<String, Object> map,
-			String json) throws JSONException {
+	private void inputDataToMaps(ConcurrentHashMap<String, Object> map, String json) throws JSONException {
 		Log.i("revjson", json);
 		JSONObject receive = new JSONObject(json);
 		Iterator actions = receive.keys();
@@ -299,8 +294,7 @@ public class AdvancedActivity extends BaseActivity implements
 			String action = actions.next().toString();
 			Log.i("revjson", "action=" + action);
 			// 忽略特殊部分
-			if (action.equals("cmd") || action.equals("qos")
-					|| action.equals("seq") || action.equals("version")) {
+			if (action.equals("cmd") || action.equals("qos") || action.equals("seq") || action.equals("version")) {
 				continue;
 			}
 			JSONObject params = receive.getJSONObject(action);
@@ -315,7 +309,7 @@ public class AdvancedActivity extends BaseActivity implements
 		}
 		handler.sendEmptyMessage(handler_key.UPDATE_UI.ordinal());
 	}
-	
+
 	/**
 	 * Input alarm to list.
 	 * 
@@ -331,32 +325,38 @@ public class AdvancedActivity extends BaseActivity implements
 		while (actions.hasNext()) {
 
 			String action = actions.next().toString();
+			String value = receive.getString(action);
 			Log.i("revjson", "action=" + action);
 			DeviceAlarm alarm = new DeviceAlarm(DateUtil.getDateCN(new Date()), action);
-			alarmList.add(alarm);
+			if (value.equals("1")) {
+				alarmList.add(alarm);
+			}
 		}
 		handler.sendEmptyMessage(handler_key.ALARM.ordinal());
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.app.Activity#onBackPressed()
 	 */
 	@Override
 	public void onBackPressed() {
 		finish();
 	}
-	
+
 	/**
 	 * SensitivityFragment change lv function
+	 * 
 	 * @param level
 	 */
-	public void sendSensitivityLv(int lv){
+	public void sendSensitivityLv(int lv) {
 		mCenter.cAirSensitivity(mXpgWifiDevice, lv);
 	}
-	
 
 	/**
 	 * ReseboxFragment reset function
+	 * 
 	 * @param level
 	 */
 	public void resetRosebox() {

@@ -27,7 +27,6 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
-
 import com.gizwits.airpurifier.R;
 import com.gizwits.framework.widget.ArrayWheelAdapter;
 import com.gizwits.framework.widget.WheelView;
@@ -212,6 +211,8 @@ public class DialogManager {
 		return dialog;
 	}
 
+	
+	
 	/**
 	 * 设备故障无法使用,拨打客服热线 对话框.
 	 *
