@@ -20,6 +20,8 @@
     <uses-permission android:name="android.permission.FLASHLIGHT" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <!-- 乐鑫配置库中使用的权限（WIFI组播） -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
 
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
@@ -46,27 +48,33 @@
         <activity android:name="com.gizwits.framework.activity.account.ChangePswActivity" />
         <activity android:name="com.gizwits.framework.activity.account.ForgetPswActivity" />
         <activity android:name="com.gizwits.framework.activity.account.UserManageActivity" />
-        <activity android:name="com.gizwits.framework.activity.device.DeviceListActivity" 
-            	android:launchMode="singleTask"/>
+        <activity
+            android:name="com.gizwits.framework.activity.device.DeviceListActivity"
+            android:launchMode="singleTask" />
         <activity android:name="com.gizwits.framework.activity.device.DeviceManageListActivity" />
         <activity android:name="com.gizwits.framework.activity.device.DeviceManageDetailActivity" />
         <activity android:name="com.gizwits.framework.activity.onboarding.AirlinkActivity" />
         <activity android:name="com.gizwits.framework.activity.onboarding.AutoConfigActivity" />
         <activity android:name="com.gizwits.framework.activity.onboarding.BindingDeviceActivity" />
-        <activity android:name="com.gizwits.framework.activity.onboarding.SearchDeviceActivity"
+        <activity
+            android:name="com.gizwits.framework.activity.onboarding.SearchDeviceActivity"
             android:launchMode="singleTask" />
         <activity android:name="com.gizwits.framework.activity.onboarding.SoftApConfigActivity" />
         <activity android:name="com.gizwits.framework.activity.help.AboutActivity" />
         <activity android:name="com.gizwits.framework.activity.help.HelpActivity" />
         <activity
             android:name="zxing.CaptureActivity"
-             android:screenOrientation="portrait"
-            android:configChanges="orientation|keyboardHidden"  />
-        <activity android:screenOrientation="portrait" android:name="com.gizwits.airpurifier.activity.control.AirPurActivity" />
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.gizwits.airpurifier.activity.control.AirPurActivity"
+            android:screenOrientation="portrait" />
         <activity android:name="com.gizwits.airpurifier.activity.control.AlarmListActicity" />
         <activity android:name="com.gizwits.airpurifier.activity.control.CurveActivity" />
         <activity android:name="com.gizwits.airpurifier.activity.advanced.AdvancedActivity" />
         <activity android:name="com.gizwits.airpurifier.activity.ChartActivity" />
+        <activity android:name="com.gizwits.framework.widget.AboutVersionActivity" >
+        </activity>
     </application>
 
 </manifest>
